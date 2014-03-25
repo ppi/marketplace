@@ -5,6 +5,7 @@ modules:
     active_modules:
         - Framework
         - Application
+        - UserModule
         - PPI\BowerModule
         - PPI\SmartyModule
         - PPI\TwigModule

@@ -5,6 +5,7 @@ return array(
     'active_modules' => array(
         'Framework',
         'Application',
+        'UserModule',
         'PPI\BowerModule',
         'PPI\SmartyModule',
         'PPI\TwigModule',

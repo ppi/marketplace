@@ -1,0 +1,26 @@
+User_Create:
+    pattern: /user/create
+    defaults: { _controller: "UserModule:Account:create"}
+    requirements:
+        _method: POST
+        
+User_CheckExists:
+    pattern: /user/checkexists
+    defaults: { _controller: "UserModule:Account:checkExists"}
+    requirements:
+        _method: POST
+
+User_Login:
+    pattern: /user/login
+    defaults: { _controller: "UserModule:Auth:login"}
+
+
+User_Logout:
+    pattern: /user/logout
+    defaults: { _controller: "UserModule:Auth:logout"}
+
+User_Login_Check:
+    pattern: /user/logincheck
+    defaults: { _controller: "UserModule:Auth:logincheck"}
+    requirements:
+        _method: POST

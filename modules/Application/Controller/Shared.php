@@ -18,6 +18,9 @@ class Shared extends BaseController
      */
     protected function render($template, array $params = array(), array $options = array())
     {
+
+        $options['helpers'][] = $this->getService('user.security.templating.helper');
+
         return parent::render($template, $params, $options);
     }
 
