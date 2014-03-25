@@ -24,6 +24,11 @@ class ModuleEntity
                 $this->{$key} = $value;
             }
         }
+
+        if($this->last_updated !== null) {
+            $this->last_updated = new \DateTime($this->last_updated);
+        }
+
     }
 
     /**
