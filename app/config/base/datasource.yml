@@ -1,0 +1,9 @@
+framework:
+    datasource:
+        connections:
+            main:
+                type:   "pdo_mysql"
+                host:   "localhost"
+                dbname: "ppi2_skeleton"
+                user:   "root"
+                pass:   ""

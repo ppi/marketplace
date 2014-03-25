@@ -1,0 +1,46 @@
+{
+    "name": "ppi/skeleton-app",
+    "description": "The PPI Skeleton Application - A pre-built application around the PPI Framework. Lots of extra goodies",
+    "homepage": "http://www.ppi.io",
+    "license": "MIT",
+    "keywords": ["framework", "ppi", "symfony", "zend", "doctrine", "laravel", "fuelphp", "mongo", "pdo", "ppi", "skeletonapp", "bootstrap", "html5", "jquery", "mustache"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Paul Dragoonis",
+            "email": "paul@ppi.io"
+        }
+    ],
+    "require": {
+        "ppi/framework": "dev-develop",
+        "ppi/bower-module": "dev-develop",
+        "ppi/cache-module": "dev-master",
+        "ppi/distribution-module": "dev-develop",
+        "ppi/mustache-module": "dev-develop",
+        "ppi/smarty-module": "dev-develop",
+        "ppi/twig-module": "dev-develop",
+        "ppi/twitter-bootstrap-module": "dev-develop"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PPI\\DistributionModule\\Composer\\ScriptHandler::installAssets",
+            "PPI\\DistributionModule\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "PPI\\DistributionModule\\Composer\\ScriptHandler::installAssets",
+            "PPI\\DistributionModule\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.1-dev"
+        },
+        "ppi-app-dir": "app",
+        "ppi-web-dir": "public",
+        "ppi-assets-install": "symlink"
+    },
+    "config": {
+        "component-dir": "public/libs"
+    }
+}
