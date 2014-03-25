@@ -1,7 +1,7 @@
 <?php $view->extend('::base.html.php'); ?>
 
 <div class="page-header">
-    <h1>Welcome User</h1>
+    <h1>Title Of Module</h1>
 </div>
 
 <div class="col-sm-7">
@@ -15,7 +15,7 @@
 			</li>
 
 			<li>
-				<a href="#profile" data-toggle="tab">
+				<a href="#screenshot" data-toggle="tab">
 					<i class="green icon-desktop bigger-110"></i>
 					Screenshots
 				</a>
@@ -51,8 +51,8 @@
 				<p>Fusce nec dui eget risus rutrum rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec orci velit, vulputate eu lacus in, vulputate vehicula ipsum. Quisque a varius mi. Mauris pulvinar eget massa nec mollis. Quisque ut rhoncus lectus. Aenean vitae viverra nisi. Ut lorem nulla, aliquet sit amet sem semper, interdum sodales neque. Vivamus tristique auctor blandit. Sed sem sapien, feugiat sit amet lorem ut, tristique adipiscing nisl. Phasellus volutpat risus faucibus massa dapibus, nec consectetur turpis fringilla. Donec bibendum magna vitae lacinia imperdiet. Curabitur ut consectetur augue, a tempus neque. </p>
 			</div>
 
-			<div class="tab-pane" id="profile">
-				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+			<div class="tab-pane" id="screenshot">
+
 			</div>
 			
 			<div class="tab-pane" id="support">
@@ -66,8 +66,24 @@
 			<div class="tab-pane" id="source">
 				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
 			</div>									
+		</div>
+	</div>
+</div>
 
+<div class="col-sm-5">
+	<div class="widget-box">
+		<div class="widget-header">
+			<h4 class="smaller">
+				Authors
+			</h4>
+		</div>
 
+		<div class="widget-body">
+			<div class="widget-main">
+
+				<hr>
+
+			</div>
 		</div>
 	</div>
 </div>
