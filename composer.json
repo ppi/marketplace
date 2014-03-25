@@ -1,10 +1,4 @@
 {
-    "name": "ppi/skeleton-app",
-    "description": "The PPI Skeleton Application - A pre-built application around the PPI Framework. Lots of extra goodies",
-    "homepage": "http://www.ppi.io",
-    "license": "MIT",
-    "keywords": ["framework", "ppi", "symfony", "zend", "doctrine", "laravel", "fuelphp", "mongo", "pdo", "ppi", "skeletonapp", "bootstrap", "html5", "jquery", "mustache"],
-    "type": "library",
     "authors": [
         {
             "name": "Paul Dragoonis",
@@ -19,7 +13,8 @@
         "ppi/mustache-module": "dev-develop",
         "ppi/smarty-module": "dev-develop",
         "ppi/twig-module": "dev-develop",
-        "ppi/twitter-bootstrap-module": "dev-develop"
+        "ppi/twitter-bootstrap-module": "dev-develop",
+        "doctrine/dbal": "2.2.*@stable"
     },
     "scripts": {
         "post-install-cmd": [

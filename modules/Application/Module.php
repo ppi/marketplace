@@ -42,4 +42,24 @@ class Module extends AbstractModule
     {
         return $this->loadConfig('config.yml');
     }
+
+    public function getServiceConfig()
+    {
+
+        return array('factories' => array(
+
+            'module.helper' => function($sm) {
+                $helper = new \Application\Classes\ModuleHelper();
+                $helper->setModuleStorage($sm->get('module.storage'));
+                return $helper;
+            },
+
+            'module.storage' => function($sm) {
+                return new \Application\Storage\Module($sm->get('datasource')->getConnection('main'));
+            },
+
+        ));
+
+    }
+
 }

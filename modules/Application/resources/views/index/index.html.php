@@ -46,9 +46,7 @@
 
 		<div class="tab-content">
 			<div class="tab-pane in active" id="home">
-				<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod eget nulla et hendrerit. Donec adipiscing quam ac augue aliquam volutpat. Sed ut adipiscing lectus. Ut id odio et dolor ornare fermentum. Sed lacus quam, pulvinar ut felis id, iaculis ultrices tortor. Sed risus sem, sollicitudin nec augue et, hendrerit gravida augue. Duis ante nunc, viverra consectetur enim ullamcorper, vehicula consectetur nunc. Morbi porttitor at tortor quis pharetra. Nulla rutrum ultrices placerat. Ut adipiscing lorem in elit faucibus, a egestas purus venenatis. Sed ut risus consequat, laoreet leo eu, mollis justo. Praesent tristique quam dapibus fermentum rutrum. Fusce eu neque sem. Donec quis velit eu massa semper blandit. Nunc vel magna cursus, tincidunt risus id, commodo massa.</p>
-
-				<p>Fusce nec dui eget risus rutrum rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec orci velit, vulputate eu lacus in, vulputate vehicula ipsum. Quisque a varius mi. Mauris pulvinar eget massa nec mollis. Quisque ut rhoncus lectus. Aenean vitae viverra nisi. Ut lorem nulla, aliquet sit amet sem semper, interdum sodales neque. Vivamus tristique auctor blandit. Sed sem sapien, feugiat sit amet lorem ut, tristique adipiscing nisl. Phasellus volutpat risus faucibus massa dapibus, nec consectetur turpis fringilla. Donec bibendum magna vitae lacinia imperdiet. Curabitur ut consectetur augue, a tempus neque. </p>
+                <?=nl2br($view->escape($selectedModule->getDescription()));?>
 			</div>
 
 			<div class="tab-pane" id="screenshot">
@@ -60,7 +58,29 @@
 			</div>
 			
 			<div class="tab-pane" id="comments">
-				<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                <div class="dialogs">
+                <?php foreach($selectedModule->getComments() as $comment): ?>
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="Alexa's Avatar" src="/assets/avatars/avatar1.png">
+                        </div>
+
+                        <div class="body">
+                            <div class="time">
+                                <i class="icon-time"></i>
+                                <span class="green"><?=$comment->getCreated()->format('jS F Y \a\t h:i:sA');?></span>
+                            </div>
+
+                            <div class="name">
+                                <a href="#"><?=$view->escape($comment->getName());?></a>
+                            </div>
+                            <div class="text"><?=$view->escape($comment->getComment());?></div>
+
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                </div>
+
 			</div>
 			
 			<div class="tab-pane" id="source">

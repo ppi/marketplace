@@ -8,7 +8,12 @@ class Index extends SharedController
 {
     public function indexAction()
     {
-        return $this->render('Application:index:index.html.php');
+
+        $moduleHelper = $this->getService('module.helper');
+
+        $selectedModule = $moduleHelper->getByID(1);
+
+        return $this->render('Application:index:index.html.php', compact('selectedModule'));
 
     }
 }
