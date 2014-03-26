@@ -77,7 +77,7 @@
                 <a href="#" class="navbar-brand">
                     <small>
                         <i class="icon-bar-chart"></i>
-                        Opinurate Reporting &amp; Analytics Dashboard
+                        PPI Marketplace
                     </small>
                 </a><!-- /.brand -->
             </div>

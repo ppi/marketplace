@@ -1,7 +1,7 @@
 <?php $view->extend('::base.html.php'); ?>
 
     <div class="page-header">
-        <h1>Title Of Module</h1>
+        <h1><?=$view->escape($selectedModule->getTitle());?></h1>
     </div>
 
     <div class="col-sm-7">
@@ -54,7 +54,7 @@
                         <ul class="ace-thumbnails">
                             <?php foreach($selectedModule->getScreenshots() as $screenshot): ?>
                             <li>
-                                <a href="/assets/screenshotos/module_<?=$selectedModule->getID();?>/<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
+                                <a href="/assets/screenshots/module_<?=$selectedModule->getID();?>/<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
                                     <img alt="150x150" src="/assets/images/gallery/thumb-2.jpg"/>
                                 </a>
 

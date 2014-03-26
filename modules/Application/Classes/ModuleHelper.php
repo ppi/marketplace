@@ -22,7 +22,10 @@ class ModuleHelper
     {
         $module = $this->moduleStorage->getByID($id);
         $comments = $this->getCommentsByModuleID($id);
+        $screenshots = $this->getScreenshotsByModuleID($id);
+
         $module->setComments($comments);
+        $module->setScreenshots($screenshots);
 
         return $module;
     }
@@ -36,6 +39,17 @@ class ModuleHelper
     public function getCommentsByModuleID($moduleID)
     {
         return $this->moduleStorage->getCommentsByModuleID($moduleID);
+    }
+
+    /**
+     * Get screenshots for a module
+     *
+     * @param integer $moduleID
+     * @return array
+     */
+    public function getScreenshotsByModuleID($moduleID)
+    {
+        return $this->moduleStorage->getScreenshotsByModuleID($moduleID);
     }
 
 }
