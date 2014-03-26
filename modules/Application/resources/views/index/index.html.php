@@ -109,24 +109,49 @@
         </div>
     </div>
 
-    <div class="col-sm-5">
-        <div class="widget-box">
-            <div class="widget-header">
-                <h4 class="smaller">
-                    Authors
-                </h4>
-            </div>
+<div class="col-sm-5">
+	<div class="widget-box">
+		<div class="widget-header">
+			<h4 class="smaller">
+				Authors
+			</h4>
+		</div>
 
-            <div class="widget-body">
-                <div class="widget-main">
-
-                    <hr>
-
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="widget-body">
+			<div class="widget-main">
+				<div class="author">
+					<img src="/assets/avatars/avatar1.png" class="users" /> <span>Ross Moroney</span>
+				</div>
+				<div class="author">
+					<img src="/assets/avatars/avatar1.png" class="users" /> <span>Ross Moroney</span>
+				</div>				
+				<hr>
+				<div>
+					<span class="bold">Requirements:</span> <span>PPI 2.1</span>
+				</div>
+				<div>
+					<span class="bold">Last Updated:</span>	<span><?=$selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA')?></span>
+				</div>
+				<div>
+					<span class="bold">Downloaded:</span> <span><?=$selectedModule->getNumDownloads(); ?></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php $view['slots']->start('include_js_body'); ?>
-    <script type="text/javascript" src="<?= $view['assets']->getUrl('js/home.js'); ?>"></script>
+    <script type="text/javascript" src="<?=$view['assets']->getUrl('js/home.js');?>"></script>
 <?php $view['slots']->stop(); ?>
+
+<?php $view['slots']->start('include_css'); ?>
+	<style>
+		.author {
+			margin-bottom:10px;
+		}
+		
+		.bold {
+			font-weight: bold;
+		}
+	</style>
+<?php $view['slots']->stop();?>

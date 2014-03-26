@@ -11,7 +11,7 @@ $connections['main'] = array(
     'hostname'   => 'localhost',
     'database'   => 'ppi_marketplace',
     'username'   => 'root',
-    'password'   => '',
+    'password'   => 'hurr123***',
 
     'charset'    => 'utf8',
     'collation'  => 'utf8_unicode_ci',
