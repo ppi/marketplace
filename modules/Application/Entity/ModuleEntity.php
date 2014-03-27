@@ -14,7 +14,7 @@ class ModuleEntity
 
     // Virtual Properties
     protected $comments = array();
-    protected $author_name;
+    protected $authors = array();
     protected $screenshots = array();
 
     public function __construct($data = array())
@@ -69,6 +69,14 @@ class ModuleEntity
     public function setComments(array $comments)
     {
         $this->comments = $comments;
+    }
+    
+    /**
+     * @param array $authors
+     */    
+    public function setAuthors(array $authors)
+    {
+    	$this->authors = $authors;
     }
 
     /**
@@ -158,7 +166,15 @@ class ModuleEntity
     {
         return $this->screenshots;
     }
-
+    
+    /**
+     * @return array
+     */
+    public function getAuthors()
+    {
+    	return $this->authors;
+    }
+    
     /**
      * @param mixed $title
      */

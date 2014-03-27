@@ -54,8 +54,8 @@
                         <ul class="ace-thumbnails">
                             <?php foreach($selectedModule->getScreenshots() as $screenshot): ?>
                             <li>
-                                <a href="/assets/screenshots/module_<?=$selectedModule->getID();?>/<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
-                                    <img alt="150x150" src="/assets/images/gallery/thumb-2.jpg"/>
+                                <a class="cboxElement" href="<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
+                                    <img alt="150x150" src="<?=$view['assets']->getUrl($view->escape($screenshot->getPath()));?>"/>
                                 </a>
 
                                 <div class="tools tools-top">
@@ -119,21 +119,26 @@
 
 		<div class="widget-body">
 			<div class="widget-main">
+				<?php foreach($selectedModule->getAuthors() as $author):?>
 				<div class="author">
-					<img src="/assets/avatars/avatar1.png" class="users" /> <span>Ross Moroney</span>
+					<img src="<?=$view['assets']->getUrl($author->getImagePath());?>" class="users" /> <span><?=$view->escape($author->getFirstname()) . ' ' . $view->escape($author->getLastname());?></span>
 				</div>
-				<div class="author">
-					<img src="/assets/avatars/avatar1.png" class="users" /> <span>Ross Moroney</span>
-				</div>				
+				<?php endforeach;?>
 				<hr>
 				<div>
-					<span class="bold">Requirements:</span> <span>PPI 2.1</span>
+					<span class="bold">Rating:</span> <span>0 out of 5.00 from 0 users</span>
+				</div>
+				<div>
+					<span class="bold">Requirements:</span> <span><?//=$selectedModule->getRequirements();?></span>
 				</div>
 				<div>
 					<span class="bold">Last Updated:</span>	<span><?=$selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA')?></span>
 				</div>
 				<div>
-					<span class="bold">Downloaded:</span> <span><?=$selectedModule->getNumDownloads(); ?></span>
+					<span class="bold">Downloaded:</span> <span><?=$view->escape($selectedModule->getNumDownloads());?></span>
+				</div>
+				<div>
+					<span class="bold">License:</span> <span><?//=$view->escape($selectedModule->getLicense());?></span>
 				</div>
 			</div>
 		</div>
@@ -142,6 +147,9 @@
 
 <?php $view['slots']->start('include_js_body'); ?>
     <script type="text/javascript" src="<?=$view['assets']->getUrl('js/home.js');?>"></script>
+	<script>
+		$('a.cboxElement').colorbox({close:'X', next:'>', previous:'<'});
+	</script>    
 <?php $view['slots']->stop(); ?>
 
 <?php $view['slots']->start('include_css'); ?>

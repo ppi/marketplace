@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Dashboard - Ace Admin</title>
+    <title>PPI - Marketplace</title>
 
     <meta name="description" content="overview &amp; stats"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -11,6 +11,7 @@
 
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/assets/css/colorbox.css">
 
     <!--[if IE 7]>
     <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css"/>
@@ -37,8 +38,8 @@
 
     <!-- ace settings handler -->
 
-    <script src="/assets/js/ace-extra.min.js"></script>
-
+    <script src="/assets/js/ace-extra.min.js"></script>	
+	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
@@ -502,6 +503,11 @@
 
     <script src="/assets/js/ace-elements.min.js"></script>
     <script src="/assets/js/ace.min.js"></script>
+    
+    <!-- colorbox modal box -->
+    
+    <script src="/assets/js/jquery.colorbox-min.js"></script>
+    
 
     <!-- inline scripts related to this page -->
     <?php $view['slots']->output('include_js_body'); ?>

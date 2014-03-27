@@ -23,9 +23,11 @@ class ModuleHelper
         $module = $this->moduleStorage->getByID($id);
         $comments = $this->getCommentsByModuleID($id);
         $screenshots = $this->getScreenshotsByModuleID($id);
-
+		$authors = $this->getAuthorsByModuleID($id);
+        
         $module->setComments($comments);
         $module->setScreenshots($screenshots);
+        $module->setAuthors($authors);
 
         return $module;
     }
@@ -50,6 +52,17 @@ class ModuleHelper
     public function getScreenshotsByModuleID($moduleID)
     {
         return $this->moduleStorage->getScreenshotsByModuleID($moduleID);
+    }
+
+    
+    /**
+     * Get authors for a module
+     *
+     * @param integer $moduleID
+     * @return array
+     */    
+    public function getAuthorsByModuleID($moduleID) {
+    	return $this->moduleStorage->getAuthorsByModuleID($moduleID);
     }
 
 }

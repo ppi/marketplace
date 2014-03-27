@@ -5,6 +5,7 @@ use Application\Storage\Base as BaseStorage;
 use Application\Entity\ModuleEntity;
 use Application\Entity\ModuleCommentEntity;
 use Application\Entity\ModuleScreenshotEntity;
+use Application\Entity\AuthorEntity;
 
 class Module extends BaseStorage
 {
@@ -97,6 +98,24 @@ class Module extends BaseStorage
 
     }
 
+    public function getAuthorsByModuleID($moduleID) {
+        $rows = $this->ds->createQueryBuilder()
+            ->select('a.*')
+            ->from('module_author', 'a')
+            ->andWhere('a.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
+            ->execute()
+            ->fetchAll(self::fetchMode);
+
+        if ($rows === false) {
+            throw new \Exception('Unable to obtain screenshots for module id: ' . $moduleID);
+        }
+
+        $ent = array();
+        foreach($rows as $r) {
+            $ent[] = new AuthorEntity($r);
+        }
+        return $ent;
+    }
 
     public function rowsToEntities($rows) {
         $ent = array();
