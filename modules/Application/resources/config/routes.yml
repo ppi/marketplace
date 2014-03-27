@@ -2,5 +2,5 @@ Homepage:
     pattern:  /
     defaults: { _controller: "Application:Index:index"}
 Create_Module:
-    pattern:  /createmodule
+    pattern:  /module/create
     defaults: { _controller: "Application:Index:createmodule"}

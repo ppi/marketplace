@@ -1,9 +1,7 @@
 User_Create:
     pattern: /user/create
     defaults: { _controller: "UserModule:Account:create"}
-    requirements:
-        _method: POST
-        
+
 User_CheckExists:
     pattern: /user/checkexists
     defaults: { _controller: "UserModule:Account:checkExists"}

@@ -72,6 +72,11 @@ class Auth extends SharedController
 
     }
 
+    public function registerAction()
+    {
+
+    }
+
     protected function renderJsonResponse($response)
     {
         $this->getRequest()->headers->set('Content-Type', 'application/json');

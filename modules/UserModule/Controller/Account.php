@@ -10,6 +10,11 @@ class Account extends SharedController
     public function createAction()
     {
 
+        // If no POST - render
+        if(!$this->is('post')) {
+            return $this->render('UserModule:account:create.html.php');
+        }
+
         $missingFields = array();
         $post          = $this->post();
         $requiredKeys  = array('firstname', 'lastname', 'email', 'password');
@@ -23,15 +28,13 @@ class Account extends SharedController
 
         // If any fields were missing, inform the client
         if (!empty($missingFields)) {
-            return $this->createResponse(array(
-                'status' => 'error',
-                'code'   => 'E_MISSING_FIELDS'
-            ));
+            return $this->render('UserModule:account:create.html.php', compact('missingFields'));
         }
 
         $accountHelper = $this->getService('user.account.helper');
 
-        // @todo - make the app just try to create a user, and then respond with an error msg rather than calling the 'emailexists' action
+
+        // @todo - check email exists
         // Check if the user's email address already exists
         if ($accountHelper->existsByEmail($post['email'])) {
             return $this->createResponse(array(
@@ -56,11 +59,7 @@ class Account extends SharedController
         // Send the user's activation email
 //        $this->sendActivationEmail($userEntity);
 
-        return $this->createResponse(array(
-            'status'  => 'success',
-            'code'    => 'OK',
-            'user_id' => $newUserID
-        ));
+
 
     }
     
