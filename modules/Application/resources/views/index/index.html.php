@@ -4,7 +4,7 @@
         <h1><?=$view->escape($selectedModule->getTitle());?></h1>
     </div>
 
-    <div class="col-sm-7">
+    <div class="col-sm-8">
         <div class="tabbable">
             <ul id="myTab" class="nav nav-tabs">
                 <li class="active">
@@ -18,6 +18,13 @@
                     <a href="#screenshot" data-toggle="tab">
                         <i class="green icon-desktop bigger-110"></i>
                         Screenshots
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#installation" data-toggle="tab">
+                        <i class="green icon-wrench bigger-110"></i>
+                        Installation
                     </a>
                 </li>
 
@@ -102,6 +109,16 @@
 
                 </div>
 
+                <div class="tab-pane" id="installation">
+                    <ul>
+                        <li>Something</li>
+                        <li>Something 1</li>
+                        <li>Something 2</li>
+                        <li>Something 3</li>
+                        <li>Something 4</li>
+                    </ul>
+                </div>
+
                 <div class="tab-pane" id="source">
 
                     <div class="profile-user-info profile-user-info-striped">
@@ -110,7 +127,7 @@
                             <div class="profile-info-name"> Github Url </div>
 
                             <div class="profile-info-value">
-                                <a href="<?=$selectedModule->getSourceInfo()->getGithubUrl();?>" title="Github Url">
+                                <a href="<?=$selectedModule->getSourceInfo()->getGithubUrl();?>" title="Github Url" target="_blank">
                                     <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getGithubUrl();?></span>
                                 </a>
                             </div>
@@ -120,7 +137,7 @@
                             <div class="profile-info-name"> Packagist Url </div>
 
                             <div class="profile-info-value">
-                                <a href="<?=$selectedModule->getSourceInfo()->getPackagistUrl();?>" title="Packagist Url">
+                                <a href="<?=$selectedModule->getSourceInfo()->getPackagistUrl();?>" title="Packagist Url" target="_blank">
                                     <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getPackagistUrl();?></span>
                                 </a>
                             </div>
@@ -132,7 +149,7 @@
         </div>
     </div>
 
-<div class="col-sm-5">
+<div class="col-sm-4">
 	<div class="widget-box">
 		<div class="widget-header">
 			<h4 class="smaller">
