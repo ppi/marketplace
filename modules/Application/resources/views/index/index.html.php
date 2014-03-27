@@ -116,30 +116,59 @@
 				Authors
 			</h4>
 		</div>
-
+		
 		<div class="widget-body">
 			<div class="widget-main">
+				
 				<?php foreach($selectedModule->getAuthors() as $author):?>
 				<div class="author">
 					<img src="<?=$view['assets']->getUrl($author->getImagePath());?>" class="users" /> <span><?=$view->escape($author->getFirstname()) . ' ' . $view->escape($author->getLastname());?></span>
 				</div>
 				<?php endforeach;?>
-				<hr>
-				<div>
-					<span class="bold">Rating:</span> <span>0 out of 5.00 from 0 users</span>
-				</div>
-				<div>
-					<span class="bold">Requirements:</span> <span><?//=$selectedModule->getRequirements();?></span>
-				</div>
-				<div>
-					<span class="bold">Last Updated:</span>	<span><?=$selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA')?></span>
-				</div>
-				<div>
-					<span class="bold">Downloaded:</span> <span><?=$view->escape($selectedModule->getNumDownloads());?></span>
-				</div>
-				<div>
-					<span class="bold">License:</span> <span><?//=$view->escape($selectedModule->getLicense());?></span>
-				</div>
+				<hr>				
+				
+				<div class="profile-user-info profile-user-info-striped">
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Rating </div>
+				
+						<div class="profile-info-value">
+							<span>0 out of 5.00 from 0 users</span>
+						</div>
+					</div>
+				
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Requirements </div>
+				
+						<div class="profile-info-value">
+							2.1
+						</div>
+					</div>
+				
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Last Updated </div>
+				
+						<div class="profile-info-value">
+							<span><?=$selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA')?></span>
+						</div>
+					</div>
+				
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Downloaded </div>
+				
+						<div class="profile-info-value">
+							<span><?=$view->escape($selectedModule->getNumDownloads());?></span>
+						</div>
+					</div>
+				
+					<div class="profile-info-row">
+						<div class="profile-info-name"> License: </div>
+				
+						<div class="profile-info-value">
+							<span>GPL</span>
+						</div>
+					</div>
+				
+				</div>				
 			</div>
 		</div>
 	</div>
