@@ -15,4 +15,8 @@ class Index extends SharedController
         return $this->render('Application:index:index.html.php', compact('selectedModule'));
 
     }
+    
+    public function createmoduleAction() {
+    	return $this->render('Application:index:createmodule.html.php');
+    }
 }
