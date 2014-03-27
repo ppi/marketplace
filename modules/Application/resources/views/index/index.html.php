@@ -55,7 +55,7 @@
                             <?php foreach($selectedModule->getScreenshots() as $screenshot): ?>
                             <li>
                                 <a class="cboxElement" href="<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
-                                    <img alt="150x150" src="<?=$view['assets']->getUrl($view->escape($screenshot->getPath()));?>"/>
+                                    <img alt="150x150" src="<?=$view['assets']->getUrl($view->escape($screenshot->getThumbPath()));?>"/>
                                 </a>
 
                                 <div class="tools tools-top">
@@ -103,7 +103,26 @@
                 </div>
 
                 <div class="tab-pane" id="source">
-                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+
+                    <div class="profile-user-info profile-user-info-striped">
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Github Url </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getGithubUrl();?></span>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name"> Packagist Url </div>
+
+                            <div class="profile-info-value">
+                                <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getPackagistUrl();?></span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,10 +157,7 @@
 				
 					<div class="profile-info-row">
 						<div class="profile-info-name"> Requirements </div>
-				
-						<div class="profile-info-value">
-							2.1
-						</div>
+						<div class="profile-info-value">2.1</div>
 					</div>
 				
 					<div class="profile-info-row">

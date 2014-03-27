@@ -16,6 +16,7 @@ class ModuleEntity
     protected $comments = array();
     protected $authors = array();
     protected $screenshots = array();
+    protected $sourceInfo = array();
 
     public function __construct($data = array())
     {
@@ -191,7 +192,15 @@ class ModuleEntity
         return $this->title;
     }
 
+    public function setSourceInfo($sourceInfo)
+    {
+        $this->sourceInfo = $sourceInfo;
+    }
 
+    public function getSourceInfo()
+    {
+        return $this->sourceInfo;
+    }
 
 
 }

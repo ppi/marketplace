@@ -24,12 +24,24 @@ class ModuleHelper
         $comments = $this->getCommentsByModuleID($id);
         $screenshots = $this->getScreenshotsByModuleID($id);
 		$authors = $this->getAuthorsByModuleID($id);
+        $sourceInfo = $this->getSourceInfoByModuleID($id);
         
         $module->setComments($comments);
         $module->setScreenshots($screenshots);
         $module->setAuthors($authors);
+        $module->setSourceInfo($sourceInfo);
 
         return $module;
+    }
+
+    /**
+     * Get the source info for the module
+     *
+     * @param integer $moduleID
+     */
+    public function getSourceInfoByModuleID($moduleID)
+    {
+        return $this->moduleStorage->getSourceInfoByModuleID($moduleID);
     }
 
     /**

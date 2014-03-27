@@ -8,6 +8,7 @@ class ModuleScreenshotEntity
     protected $id;
     protected $module_id;
     protected $path;
+    protected $thumb_path;
 
     public function __construct($data = array())
     {
@@ -64,6 +65,16 @@ class ModuleScreenshotEntity
     public function getPath()
     {
         return $this->path;
+    }
+
+    public function getThumbPath()
+    {
+        return $this->thumb_path;
+    }
+
+    public function setThumbPath($path)
+    {
+        $this->thumb_path = $path;
     }
 
     
