@@ -172,7 +172,7 @@
 						<div class="profile-info-name"> Rating </div>
 				
 						<div class="profile-info-value">
-							<span>0 out of 5.00 from 0 users</span>
+							<span>0 out of 5.00<br>from 0 users</span>
 						</div>
 					</div>
 				
