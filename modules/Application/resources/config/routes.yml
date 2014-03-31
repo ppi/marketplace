@@ -1,6 +1,13 @@
 Homepage:
     pattern:  /
     defaults: { _controller: "Application:Index:index"}
+
 Create_Module:
     pattern:  /module/create
     defaults: { _controller: "Application:Index:createmodule"}
+
+Lookup_Packagist:
+    pattern:  /module/packagist/lookup
+    defaults: { _controller: "Application:Index:lookupPackagist"}
+
+

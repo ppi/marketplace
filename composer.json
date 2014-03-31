@@ -14,7 +14,8 @@
         "ppi/smarty-module": "dev-develop",
         "ppi/twig-module": "dev-develop",
         "ppi/twitter-bootstrap-module": "dev-develop",
-        "doctrine/dbal": "2.2.*@stable"
+        "doctrine/dbal": "2.2.*@stable",
+        "knplabs/packagist-api": "1.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
