@@ -84,7 +84,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fuelux-wizard').ace_wizard().on('change', function () {
-                alert('working');
             });
         });
     </script>
