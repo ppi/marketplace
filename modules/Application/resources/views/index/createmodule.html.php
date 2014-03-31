@@ -83,7 +83,9 @@
 	                </div>
 	
 	                <div id="step3" class="step-pane">
-	                        <input name="file" type="file" multiple />
+	                	<div id="dropzone" class="row">
+	                        
+	                	</div>
 	                </div>
 	
 	                <div id="step4" class="step-pane">
@@ -119,7 +121,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-        	var Dropzone = require("dropzone");
+        	$("div#dropzone").dropzone({ url: "<?php echo $view['router']->generate('Save_Module'); ?>" });
+
+        	
             $('#fuelux-wizard').ace_wizard()
                 .on('change', function (e, info) {
 
