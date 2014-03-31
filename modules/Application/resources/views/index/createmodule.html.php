@@ -89,11 +89,15 @@
                 })
                 .on('finished', function(e) {
                     bootbox.dialog({
+                        closeButton: false,
                         message: "Thank you! Your module is now ready",
                         buttons: {
                             "success" : {
-                                "label" : "OK",
-                                "className" : "btn-sm btn-primary"
+                                label: "Let's Go!",
+                                className: "btn-sm btn-primary",
+                                callback: function() {
+                                    window.location.href = 'http://www.google.com';
+                                }
                             }
                         }
                     });
