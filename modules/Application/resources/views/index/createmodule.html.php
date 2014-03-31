@@ -121,7 +121,16 @@
         $(document).ready(function () {
         	var Dropzone = require("dropzone");
             $('#fuelux-wizard').ace_wizard()
-                .on('change', function () {
+                .on('change', function (e, info) {
+
+                    if(info.step == 1) {
+                        // @todo - check for github url
+                        // @todo - validate github URL
+
+                         // @todo - check for packagist url
+                            // @todo - make POST request in the BG and get the description
+                                // @todo - populate step 2 TinyMCE editor
+                    }
 
                 })
                 .on('finished', function(e) {

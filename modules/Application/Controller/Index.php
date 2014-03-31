@@ -13,7 +13,6 @@ class Index extends SharedController
         $selectedModule = $moduleHelper->getByID(1);
 
         return $this->render('Application:index:index.html.php', compact('selectedModule'));
-
     }
 
     public function createModuleAction()
@@ -25,15 +24,13 @@ class Index extends SharedController
     {
         $client = new PackagistClient();
         $package = $client->get($this->queryString('package'));
-
-        $maintainers = $package->getMaintainers();
+//        $maintainers = $package->getMaintainers();
         $desc = $package->getDescription();
-        $versions = $package->getVersions();
-        foreach($versions as $v) {
 
-        }
-        $githubUrl = $package->getRepository();
+        return json_encode(array(
+            'desc'   => $desc,
+            'status' => 'success'
+        ));
 
-        var_dump($package); exit;
     }
 }
