@@ -37,77 +37,82 @@
 
             <hr>
             <div id="step-container" class="step-content row-fluid position-relative">
-                <form action="<?php echo $view['router']->generate('Save_Module'); ?>" method="post" class="dropzone">
-	                <div id="step1" class="step-pane active">
-	                
-						<div class="form-group">
-							<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">Name</label>
-					
-							<div class="col-xs-12 col-sm-5">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="inputInfo" name="title" class="width-100" />
-									<i class="icon-info-sign"></i>
-								</span>
-							</div>
-							<div class="help-block col-xs-12 col-sm-reset inline"> Enter title of module! </div>
-						</div>	                    
-					
-						<div class="form-group">
-							<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">Packagist URL</label>
-					
-							<div class="col-xs-12 col-sm-5">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="inputInfo" name="packagist_url" class="width-100" />
-									<i class="icon-info-sign"></i>
-								</span>
-							</div>
-							<div class="help-block col-xs-12 col-sm-reset inline"> Enter Packagist URL! </div>
-						</div>
-						
-						<div class="form-group">
-							<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">Github URL</label>
-					
-							<div class="col-xs-12 col-sm-5">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="inputInfo" name="github_url" class="width-100" />
-									<i class="icon-info-sign"></i>
-								</span>
-							</div>
-							<div class="help-block col-xs-12 col-sm-reset inline"> Enter Github URL! </div>
-						</div>		
+                <form action="<?php echo $view['router']->generate('Save_Module'); ?>" method="post">
+                    <div id="step1" class="step-pane active">
 
-	                </div>
-	
-	                <div id="step2" class="step-pane">
-	                    <textarea id="description"></textarea>
-	                </div>
-	
-	                <div id="step3" class="step-pane">
-	                	<div id="dropzone" class="row">
-	                        
-	                	</div>
-	                </div>
-	
-	                <div id="step4" class="step-pane">
-	                    <div class="center">
-	                        <h3 class="green">Congrats!</h3>
-	                        Your product is ready to ship! Click finish to continue!
-	                    </div>
-	                </div>
+                        <div class="form-group">
+                            <label for="module-title"
+                                   class="col-xs-12 col-sm-3 control-label no-padding-right">Name</label>
+
+                            <div class="col-xs-12 col-sm-5">
+								<span class="block input-icon input-icon-right">
+									<input type="text" id="module-title" name="title" class="width-100"/>
+									<i class="icon-info-sign"></i>
+								</span>
+                            </div>
+                            <div class="help-block col-xs-12 col-sm-reset inline"> Enter the module title!</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="packagist-url" class="col-xs-12 col-sm-3 control-label no-padding-right">Packagist
+                                URL</label>
+
+                            <div class="col-xs-12 col-sm-5">
+								<span class="block input-icon input-icon-right">
+									<input type="text" id="packagist-url" name="packagist_url" class="width-100"/>
+									<i class="icon-info-sign"></i>
+								</span>
+                            </div>
+                            <div class="help-block col-xs-12 col-sm-reset inline"> Enter Packagist URL!</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="github-url" class="col-xs-12 col-sm-3 control-label no-padding-right">Github
+                                URL</label>
+
+                            <div class="col-xs-12 col-sm-5">
+								<span class="block input-icon input-icon-right">
+									<input type="text" id="github-url" name="github_url" class="width-100"/>
+									<i class="icon-info-sign"></i>
+								</span>
+                            </div>
+                            <div class="help-block col-xs-12 col-sm-reset inline"> Enter Github URL!</div>
+                        </div>
+
+                    </div>
+                    <div id="step2" class="step-pane">
+                        <textarea id="description"></textarea>
+                    </div>
                 </form>
+
+                <div id="step3" class="step-pane">
+                    <form action="/module/screenshot/upload" class="dropzone">
+                        <div id="screenshot-dropzone" class="row">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="step4" class="step-pane">
+                    <div class="center">
+                        <h3 class="green">Congrats!</h3>
+                        Your product is ready to ship! Click finish to continue!
+                    </div>
+                </div>
+
             </div>
 
             <hr>
             <div class="row-fluid wizard-actions">
                 <button class="btn btn-prev" disabled="disabled">
-                    <i class="icon-arrow-left"></i>
-                    Prev
+                    <i class="icon-arrow-left"></i>Prev
                 </button>
 
                 <button data-last="Finish " class="btn btn-success btn-next">
-                    Next
-
-                    <i class="icon-arrow-right icon-on-right"></i></button>
+                    Next<i class="icon-arrow-right icon-on-right"></i>
+                </button>
             </div>
         </div>
         <!-- /widget-main -->
@@ -121,31 +126,29 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-        	$("div#dropzone").dropzone({ url: "<?php echo $view['router']->generate('Save_Module'); ?>" });
-
-        	
+            $("div#screenshot-dropzone").dropzone({ url: "<?php echo $view['router']->generate('Save_Module'); ?>" });
             $('#fuelux-wizard').ace_wizard()
                 .on('change', function (e, info) {
 
-                    if(info.step == 1) {
+                    if (info.step == 1) {
                         // @todo - check for github url
                         // @todo - validate github URL
 
-                         // @todo - check for packagist url
-                            // @todo - make POST request in the BG and get the description
-                                // @todo - populate step 2 TinyMCE editor
+                        // @todo - check for packagist url
+                        // @todo - make POST request in the BG and get the description
+                        // @todo - populate step 2 TinyMCE editor
                     }
 
                 })
-                .on('finished', function(e) {
+                .on('finished', function (e) {
                     bootbox.dialog({
                         closeButton: false,
                         message: "Thank you! Your module is now ready",
                         buttons: {
-                            "success" : {
+                            "success": {
                                 label: "Let's Go!",
                                 className: "btn-sm btn-primary",
-                                callback: function() {
+                                callback: function () {
                                     window.location.href = 'http://www.google.com';
                                 }
                             }
@@ -153,15 +156,15 @@
                     });
                 });
         });
-		
+
     </script>
-    
-		<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-		<script>
-		        tinymce.init({selector:'textarea'});
-		</script>
-    
-    
+
+    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script>
+        tinymce.init({selector: 'textarea'});
+    </script>
+
+
     <?php $view['slots']->stop(); ?>
 
     <?php $view['slots']->start('include_css'); ?>

@@ -4,8 +4,7 @@ app/logs/*
 public/modules/*
 vendor
 composer.phar
-composer.lock
-
+.DS_Store
 # Backup files created by IDEs
 *~
 

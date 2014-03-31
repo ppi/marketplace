@@ -40,7 +40,7 @@ class Module extends AbstractModule
      */
     public function getConfig()
     {
-        return $this->loadConfig('config.yml');
+        return $this->loadConfig('config.php');
     }
 
     public function getServiceConfig()
