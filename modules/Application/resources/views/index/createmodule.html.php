@@ -119,16 +119,28 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fuelux-wizard').ace_wizard().on('change', function () {
-            });
+        	var Dropzone = require("dropzone");
+            $('#fuelux-wizard').ace_wizard()
+                .on('change', function () {
 
-            var Dropzone = require("dropzone");
-            
-
-
-            });
-
-        
+                })
+                .on('finished', function(e) {
+                    bootbox.dialog({
+                        closeButton: false,
+                        message: "Thank you! Your module is now ready",
+                        buttons: {
+                            "success" : {
+                                label: "Let's Go!",
+                                className: "btn-sm btn-primary",
+                                callback: function() {
+                                    window.location.href = 'http://www.google.com';
+                                }
+                            }
+                        }
+                    });
+                });
+        });
+		
     </script>
     
 		<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
