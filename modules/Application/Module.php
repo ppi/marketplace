@@ -53,7 +53,11 @@ class Module extends AbstractModule
                 $helper->setModuleStorage($sm->get('module.storage'));
                 return $helper;
             },
-
+            
+            'imageresize.helper' => function() {
+            	$helper = new \Application\Classes\ImageResizeHelper();
+            	return $helper;
+            },
             'module.storage' => function($sm) {
                 return new \Application\Storage\Module($sm->get('datasource')->getConnection('main'));
             },
