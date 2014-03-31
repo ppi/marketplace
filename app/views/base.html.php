@@ -498,6 +498,7 @@
     <script src="/assets/js/flot/jquery.flot.min.js"></script>
     <script src="/assets/js/flot/jquery.flot.pie.min.js"></script>
     <script src="/assets/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="/assets/js/dropzone.min.js"></script>
 
     <!-- ace scripts -->
 

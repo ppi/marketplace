@@ -10,4 +10,6 @@ Lookup_Packagist:
     pattern:  /module/packagist/lookup
     defaults: { _controller: "Application:Index:lookupPackagist"}
 
-
+Save_Module:
+    pattern:  /module/save
+    defaults: { _controller: "Application:Index:savemodule"}
