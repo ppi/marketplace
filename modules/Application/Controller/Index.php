@@ -54,10 +54,20 @@ class Index extends SharedController
         }
 
         $config = $this->getConfig();
-        $newFilename = sprintf('%s_screenshot_%s.%s', $moduleID, microtime(true), $ext);
-        $newPath = $config['module']['screenshots_public_dir'] . '/' . $newFilename;
+        $random = time(); // @todo - make this more random
 
-        $ret = move_uploaded_file($file['tmp_name'], $newPath);
+
+        // Make the thumbnail
+        $thumbFilename = sprintf('%s_thumbnail_%s.%s', $moduleID, $random, $ext);
+        $thumbPath = $config['module']['thumbnails_public_dir'] . '/' . $thumbFilename;
+        $this->getService('imageresize.helper')->makeThumb($file['tmp_name'], $thumbPath, 100);
+
+        // Make the Screenshot
+        $screenshotFilename = sprintf('%s_screenshot_%s.%s', $moduleID, $random, $ext);
+        $screenshotPath = $config['module']['screenshots_public_dir'] . '/' . $screenshotFilename;
+        $ret = move_uploaded_file($file['tmp_name'], $screenshotPath);
+
+        die($screenshotPath);
 
     }
 }

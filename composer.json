@@ -15,7 +15,8 @@
         "ppi/twig-module": "dev-develop",
         "ppi/twitter-bootstrap-module": "dev-develop",
         "doctrine/dbal": "2.2.*@stable",
-        "knplabs/packagist-api": "1.*@dev"
+        "knplabs/packagist-api": "1.*@dev",
+        "intervention/image": "1.*"
     },
     "scripts": {
         "post-install-cmd": [
