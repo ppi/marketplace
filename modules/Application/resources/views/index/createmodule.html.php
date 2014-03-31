@@ -83,8 +83,21 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fuelux-wizard').ace_wizard().on('change', function () {
-            });
+            $('#fuelux-wizard').ace_wizard()
+                .on('change', function () {
+
+                })
+                .on('finished', function(e) {
+                    bootbox.dialog({
+                        message: "Thank you! Your module is now ready",
+                        buttons: {
+                            "success" : {
+                                "label" : "OK",
+                                "className" : "btn-sm btn-primary"
+                            }
+                        }
+                    });
+                });
         });
     </script>
     <?php $view['slots']->stop(); ?>
