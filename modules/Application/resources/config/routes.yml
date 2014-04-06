@@ -4,16 +4,20 @@ Homepage:
 
 Create_Module:
     pattern:  /module/create
-    defaults: { _controller: "Application:Index:createmodule"}
+    defaults: { _controller: "Application:Module:create"}
 
 Lookup_Packagist:
     pattern:  /module/packagist/lookup
-    defaults: { _controller: "Application:Index:lookupPackagist"}
+    defaults: { _controller: "Application:Module:lookupPackagist"}
 
 Module_Screenshot_Upload:
     pattern:  /module/screenshot/upload
-    defaults: { _controller: "Application:Index:uploadScreenshot"}
+    defaults: { _controller: "Application:Module:uploadScreenshot"}
 
-Save_Module:
+Module_Save:
     pattern:  /module/save
-    defaults: { _controller: "Application:Index:savemodule"}
+    defaults: { _controller: "Application:Module:save"}
+
+Module_Finish:
+    pattern:  /module/finish
+    defaults: { _controller: "Application:Module:finish"}
