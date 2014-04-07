@@ -173,7 +173,7 @@ class Module extends BaseStorage
     {
         $rowsAffected = $this->ds->update(
             self::tableName,
-            array('description' => $desc, 'last_updated' => date('Y-m-d i:h:s')),
+            array('description' => $desc, 'last_updated' => date('Y-m-d h:i:s')),
             array('id' => $moduleID)
         );
 
