@@ -209,4 +209,38 @@ class Module extends BaseStorage
         return false;
     }
 
+    public function getPopularModules() {
+        $rows = $this->ds->createQueryBuilder()
+            ->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar')
+            ->from(self::tableName, 't')
+            ->leftJoin('t', 'module_author', 'a', 't.author_id = a.id')
+            ->orderBy('t.stars', 'ASC')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll(self::fetchMode);
+
+        $ent = array();
+        foreach ($rows as $r) {
+            $ent[] = new ModuleEntity($r);
+        }
+        return $ent;
+    }
+
+    public function getUpdatedModules() {
+        $rows = $this->ds->createQueryBuilder()
+            ->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar')
+            ->from(self::tableName, 't')
+            ->leftJoin('t', 'module_author', 'a', 't.author_id = a.id')
+            ->orderBy('t.last_updated', 'ASC')
+            ->setMaxResults(10)
+            ->execute()
+            ->fetchAll(self::fetchMode);
+
+        $ent = array();
+        foreach ($rows as $r) {
+            $ent[] = new ModuleEntity($r);
+        }
+        return $ent;
+    }
+
 }

@@ -7,6 +7,7 @@ class ModuleEntity
 
     protected $id;
     protected $description;
+    protected $created;
     protected $last_updated;
     protected $num_downloads;
     protected $title;
@@ -15,6 +16,9 @@ class ModuleEntity
     protected $is_completed;
 
     // Virtual Properties
+    protected $author_firstname;
+    protected $author_lastname;
+    protected $author_avatar;
     protected $comments = array();
     protected $authors = array();
     protected $screenshots = array();
@@ -29,6 +33,10 @@ class ModuleEntity
 
         if($this->last_updated !== null) {
             $this->last_updated = new \DateTime($this->last_updated);
+        }
+
+        if($this->created !== null) {
+            $this->created = new \DateTime($this->created);
         }
 
     }
@@ -50,22 +58,6 @@ class ModuleEntity
     }
 
     /**
-     * @param string $author_name
-     */
-    public function setAuthorName($author_name)
-    {
-        $this->author_name = $author_name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAuthorName()
-    {
-        return $this->author_name;
-    }
-
-    /**
      * @param array $comments
      */
     public function setComments(array $comments)
@@ -79,6 +71,75 @@ class ModuleEntity
     public function setAuthors(array $authors)
     {
     	$this->authors = $authors;
+    }
+
+    /**
+     * @param mixed $author_avatar
+     */
+    public function setAuthorAvatar($author_avatar)
+    {
+        $this->author_avatar = $author_avatar;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorAvatar()
+    {
+        return $this->author_avatar;
+    }
+
+    /**
+     * @param mixed $created
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $author_firstname
+     */
+    public function setAuthorFirstname($author_firstname)
+    {
+        $this->author_firstname = $author_firstname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorFirstname()
+    {
+        return $this->author_firstname;
+    }
+
+    /**
+     * @param mixed $author_lastname
+     */
+    public function setAuthorLastname($author_lastname)
+    {
+        $this->author_lastname = $author_lastname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorLastname()
+    {
+        return $this->author_lastname;
+    }
+
+    public function getAuthorName()
+    {
+        return $this->getAuthorFirstname() . ' ' . $this->getAuthorLastname();
     }
 
     /**
@@ -246,7 +307,10 @@ class ModuleEntity
     {
         $this->setNumDownloads(0);
         $vars = $this->toArray();
-        unset($vars['id'], $vars['comments'], $vars['authors'], $vars['screenshots']);
+        unset(
+            $vars['id'], $vars['comments'], $vars['authors'],
+            $vars['screenshots'], $vars['author_firstname'], $vars['author_lastname'], $vars['author_avatar']
+        );
         return $vars;
     }
 
