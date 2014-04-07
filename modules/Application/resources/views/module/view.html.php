@@ -8,7 +8,7 @@
         <div class="tabbable">
             <ul id="myTab" class="nav nav-tabs">
                 <li class="active">
-                    <a href="#home" data-toggle="tab">
+                    <a href="#moduleDescription" data-toggle="tab">
                         <i class="green icon-home bigger-110"></i>
                         Description
                     </a>
@@ -52,7 +52,7 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane in active" id="home">
+                <div class="tab-pane in active" id="moduleDescription">
                     <?= nl2br($view->escape($selectedModule->getDescription())); ?>
                 </div>
 
@@ -202,10 +202,12 @@
 </div>
 
 <?php $view['slots']->start('include_js_body'); ?>
-    <script type="text/javascript" src="<?=$view['assets']->getUrl('js/home.js');?>"></script>
-	<script>
-		$('a.cboxElement').colorbox({close:'X', next:'>', previous:'<'});
-	</script>    
+<script type="text/javascript" src="<?= $view['assets']->getUrl('assets/js/markdown/markdown.min.js'); ?>"></script>
+<script type="text/javascript">
+    $('a.cboxElement').colorbox({close:'X', next:'>', previous:'<'});
+    var markedupHTML = markdown.toHTML($('#moduleDescription').html());
+    $('#moduleDescription').html(markedupHTML);
+</script>
 <?php $view['slots']->stop(); ?>
 
 <?php $view['slots']->start('include_css'); ?>

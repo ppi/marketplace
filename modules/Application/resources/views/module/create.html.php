@@ -135,8 +135,7 @@
 <?php $view['slots']->start('include_js_body'); ?>
 
 <script type="text/javascript" src="<?= $view['assets']->getUrl('assets/js/markdown/markdown.min.js'); ?>"></script>
-<script type="text/javascript"
-        src="<?= $view['assets']->getUrl('assets/js/markdown/bootstrap-markdown.min.js'); ?>"></script>
+<script type="text/javascript" src="<?= $view['assets']->getUrl('assets/js/markdown/bootstrap-markdown.min.js'); ?>"></script>
 
 <script type="text/javascript">
 
