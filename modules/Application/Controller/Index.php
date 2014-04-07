@@ -9,9 +9,11 @@ class Index extends SharedController
     public function indexAction()
     {
         $moduleHelper = $this->getService('module.helper');
-        $modulesList = $moduleHelper->getModulesList();
-
-        return $this->render('Application:index:index.html.php', compact('modulesList'));
+        $popularModulesList = $moduleHelper->getPopularModules();
+        $updatedModulesList = $moduleHelper->getUpdatedModules();
+        return $this->render('Application:index:index.html.php', compact('popularModulesList', 'updatedModulesList'));
     }
+
+
 
 }
