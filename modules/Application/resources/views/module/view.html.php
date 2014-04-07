@@ -52,9 +52,7 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane in active" id="moduleDescription">
-                    <?= nl2br($view->escape($selectedModule->getDescription())); ?>
-                </div>
+                <div class="tab-pane in active" id="moduleDescription"><?= $selectedModule->getDescription(); ?></div>
 
                 <div class="tab-pane" id="screenshot">
                     <div class="row">
