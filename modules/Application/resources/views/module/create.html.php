@@ -1,12 +1,8 @@
 <?php $view->extend('::base.html.php'); ?>
 
-<div class="page-header">
-    <h1>Create New Module</h1>
-</div>
-
 <div class="widget-box">
     <div class="widget-header widget-header-blue widget-header-flat">
-        <h4 class="lighter">New Item Wizard</h4>
+        <h4 class="lighter">Module Wizard</h4>
     </div>
 
     <div class="widget-body">
@@ -37,38 +33,40 @@
 
             <hr>
             <div id="step-container" class="step-content row-fluid position-relative">
-                <form action="<?php echo $view['router']->generate('Save_Module'); ?>" method="post" id="module-create-form">
+
                     <div id="step1" class="step-pane active">
+                        <form action="<?php echo $view['router']->generate('Module_Save'); ?>" method="post" id="module-create-form" data-existing="<?=$hasWizardModule ? 'true' : 'false';?>">
+                            <div class="form-group">
+                                <label for="module-title"
+                                       class="col-xs-12 col-sm-3 control-label no-padding-right">Name</label>
 
-                        <div class="form-group">
-                            <label for="module-title"
-                                   class="col-xs-12 col-sm-3 control-label no-padding-right">Name</label>
-
-                            <div class="col-xs-12 col-sm-5">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="module-title" name="moduleName" class="width-100"/>
-									<i class="icon-info-sign"></i>
-								</span>
+                                <div class="col-xs-12 col-sm-5">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" id="module-title" name="moduleName" class="width-100" value="<?=$hasWizardModule ? $wizardModule->getTitle() : '';?>">
+                                        <i class="icon-info-sign"></i>
+                                    </span>
+                                </div>
+                                <div class="help-block col-xs-12 col-sm-reset inline"> Enter the module title!</div>
                             </div>
-                            <div class="help-block col-xs-12 col-sm-reset inline"> Enter the module title!</div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="github-url" class="col-xs-12 col-sm-3 control-label no-padding-right">Github URL</label>
-                            <div class="col-xs-12 col-sm-5">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="github-url" name="github_url" class="width-100"/>
-									<i class="icon-info-sign"></i>
-								</span>
+                            <div class="form-group">
+                                <label for="github-url" class="col-xs-12 col-sm-3 control-label no-padding-right">Github URL</label>
+                                <div class="col-xs-12 col-sm-5">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" id="github-url" name="githubUrl" class="width-100" value="<?=$hasWizardModule ? $wizardModule->getGithubUrl() : '';?>" >
+                                        <i class="icon-info-sign"></i>
+                                    </span>
+                                </div>
+                                <div class="help-block col-xs-12 col-sm-reset inline"> Enter Github URL!</div>
                             </div>
-                            <div class="help-block col-xs-12 col-sm-reset inline"> Enter Github URL!</div>
-                        </div>
-
+                        </form>
                     </div>
+
                     <div id="step2" class="step-pane">
-                        <textarea id="description"></textarea>
+                        <form action="<?php echo $view['router']->generate('Module_Set_Description'); ?>" method="post" id="module-desc-form">
+                            <textarea id="description" name="moduleDescription"><?=$hasWizardModule ? $wizardModule->getDescription() : '';?></textarea>
+                        </form>
                     </div>
-                </form>
 
                 <div id="step3" class="step-pane">
                     <form action="<?php echo $view['router']->generate('Module_Screenshot_Upload'); ?>" class="dropzone">
@@ -110,45 +108,113 @@
     <script type="text/javascript" src="<?= $view['assets']->getUrl('js/home.js'); ?>"></script>
 
     <script type="text/javascript">
+
+        var createdModule = false;
+
         $(document).ready(function () {
+
+            // @todo - if loading existing module, disable the step1 fields
+            var createForm = $('#module-create-form');
+            if(createForm.data('existing') == true) {
+                $('#module-title').attr('disabled', 'disabled').addClass('disabled');
+                $('#github-url').attr('disabled', 'disabled').addClass('disabled');
+            }
+
             $("div#screenshot-dropzone").dropzone({url: '<?php echo $view['router']->generate('Module_Screenshot_Upload'); ?>'});
             $('#fuelux-wizard').ace_wizard()
                 .on('change', function (e, info) {
 
-                    if (info.step == 1) {
-                        $.post('<?php echo $view['router']->generate('Module_Save'); ?>', $('#module-create-form').serialize(), function(response) {
-                            if(response.status == 'E_MODULE_NAME_EXISTS') {
-                                bootbox.dialog({
-                                    closeButton: false,
-                                    message: "Your module name already exists.",
-                                    buttons: {
-                                        "success": {
-                                            label: "Let's change it!",
-                                            className: "btn-sm btn-primary",
-                                            callback: function () {
-                                                $('#module-title').focus();
+                    var changeStep = true;
+
+                    if (info.step == 1 && !createdModule) {
+
+                        if(createForm.data('existing') == true) {
+                            return true;
+                        }
+                        $.ajax({
+                            dataType: 'json',
+                            method: 'post',
+                            url: createForm.attr('action'),
+                            async: false,
+                            data: createForm.serialize(),
+                            success: function(response) {
+                                if(response.code == 'E_MODULE_NAME_EXISTS') {
+                                    bootbox.dialog({
+                                        closeButton: false,
+                                        message: "Your module name already exists.",
+                                        buttons: {
+                                            "success": {
+                                                label: "Let's change it!",
+                                                className: "btn-sm btn-primary",
+                                                callback: function () {
+                                                    $('#module-title').focus();
+                                                }
                                             }
                                         }
-                                    }
-                                });
-                            } else if(response.status == 'E_ERROR') {
-                                bootbox.dialog({
-                                    closeButton: false,
-                                    message: "An unknown error has occurred. Please contact the site administrators.",
-                                    buttons: {
-                                        "success": {
-                                            label: "Try again!",
-                                            className: "btn-sm btn-primary"
+                                    });
+                                    changeStep = false;
+
+                                } else if(response.code == 'E_ERROR') {
+                                    bootbox.dialog({
+                                        closeButton: false,
+                                        message: "An unknown error has occurred. Please contact the site administrators.",
+                                        buttons: {
+                                            "success": {
+                                                label: "Try again!",
+                                                className: "btn-sm btn-primary"
+                                            }
                                         }
+                                    });
+
+                                    changeStep = false;
+
+                                } else if(response.code == 'OK') {
+                                    createdModule = true;
+                                    $('#module-title').attr('disabled', 'disabled').addClass('disabled');
+                                    $('#github-url').attr('disabled', 'disabled').addClass('disabled');
+
+                                    // @todo - if description comes back, populate step 2 TinyMCE editor
+                                    if(response.description !== undefined && response.description.length > 0) {
+                                        $('#description').val(response.description);
                                     }
-                                });
+                                }
+
                             }
 
+
+                        }); // End of $.ajax()
+
+                        return changeStep;
+
+                    }
+
+                    // Lets always presume we're going to continue to next step
+                    changeStep = true;
+                    if(info.step == 2) {
+                        $.ajax({
+                            dataType: 'json',
+                            method: 'post',
+                            url: $('#module-desc-form').attr('action'),
+                            async: false,
+                            data: $('#module-desc-form').serialize(),
+                            success: function(response) {
+                                if(response.code != 'OK') {
+                                    changeStep = false;
+                                    bootbox.dialog({
+                                        closeButton: false,
+                                        message: "Unable to update description.",
+                                        buttons: {
+                                            "success": {
+                                                label: "Try again!",
+                                                className: "btn-sm btn-primary"
+                                            }
+                                        }
+                                    });
+                                }
+                            }
                         });
 
-
-                        // @todo - make basic module
-                        // @todo - if description comes back, populate step 2 TinyMCE editor
+                        return changeStep;
                     }
 
                 })

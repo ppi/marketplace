@@ -127,18 +127,8 @@
                             <div class="profile-info-name"> Github Url </div>
 
                             <div class="profile-info-value">
-                                <a href="<?=$selectedModule->getSourceInfo()->getGithubUrl();?>" title="Github Url" target="_blank">
-                                    <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getGithubUrl();?></span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="profile-info-row">
-                            <div class="profile-info-name"> Packagist Url </div>
-
-                            <div class="profile-info-value">
-                                <a href="<?=$selectedModule->getSourceInfo()->getPackagistUrl();?>" title="Packagist Url" target="_blank">
-                                    <span class="editable editable-click" id="username"><?=$selectedModule->getSourceInfo()->getPackagistUrl();?></span>
+                                <a href="<?=$selectedModule->getGithubUrl();?>" title="Github Url" target="_blank">
+                                    <span class="editable editable-click" id="username"><?=$selectedModule->getGithubUrl();?></span>
                                 </a>
                             </div>
                         </div>

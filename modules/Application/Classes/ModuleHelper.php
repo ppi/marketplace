@@ -2,6 +2,8 @@
 
 namespace Application\Classes;
 
+use Application\Entity\ModuleEntity;
+
 class ModuleHelper
 {
 
@@ -23,25 +25,23 @@ class ModuleHelper
         $module = $this->moduleStorage->getByID($id);
         $comments = $this->getCommentsByModuleID($id);
         $screenshots = $this->getScreenshotsByModuleID($id);
-		$authors = $this->getAuthorsByModuleID($id);
-        $sourceInfo = $this->getSourceInfoByModuleID($id);
-        
+        $authors = $this->getAuthorsByModuleID($id);
+
         $module->setComments($comments);
         $module->setScreenshots($screenshots);
         $module->setAuthors($authors);
-        $module->setSourceInfo($sourceInfo);
 
         return $module;
     }
 
-    /**
-     * Get the source info for the module
-     *
-     * @param integer $moduleID
-     */
-    public function getSourceInfoByModuleID($moduleID)
+    public function updateDescription($moduleID, $desc)
     {
-        return $this->moduleStorage->getSourceInfoByModuleID($moduleID);
+        return $this->moduleStorage->updateDescription($moduleID, $desc);
+    }
+
+    public function setCompleted($moduleID, $flag)
+    {
+        return $this->moduleStorage->setCompleted($moduleID, $flag);
     }
 
     /**
@@ -66,15 +66,26 @@ class ModuleHelper
         return $this->moduleStorage->getScreenshotsByModuleID($moduleID);
     }
 
-    
+
     /**
      * Get authors for a module
      *
      * @param integer $moduleID
      * @return array
-     */    
-    public function getAuthorsByModuleID($moduleID) {
-    	return $this->moduleStorage->getAuthorsByModuleID($moduleID);
+     */
+    public function getAuthorsByModuleID($moduleID)
+    {
+        return $this->moduleStorage->getAuthorsByModuleID($moduleID);
+    }
+
+    public function existsByTitle($title)
+    {
+        return $this->moduleStorage->existsByTitle($title);
+    }
+
+    public function create(ModuleEntity $module)
+    {
+        return $this->moduleStorage->create($module);
     }
 
 }

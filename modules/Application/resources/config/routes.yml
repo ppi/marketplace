@@ -18,6 +18,14 @@ Module_Save:
     pattern:  /module/save
     defaults: { _controller: "Application:Module:save"}
 
+Module_Set_Description:
+    pattern:  /module/description/set
+    defaults: { _controller: "Application:Module:setDesc"}
+
 Module_Finish:
     pattern:  /module/finish
     defaults: { _controller: "Application:Module:finish"}
+
+Module_View:
+    pattern:  /module/view/{moduleID}
+    defaults: { _controller: "Application:Module:view"}

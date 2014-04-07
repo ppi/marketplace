@@ -98,21 +98,21 @@ class Module extends BaseStorage
         return $ent;
     }
 
-    public function getSourceInfoByModuleID($moduleID)
-    {
-        $row = $this->ds->createQueryBuilder()
-            ->select('si.*')
-            ->from('module_source_info', 'si')
-            ->andWhere('si.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
-            ->execute()
-            ->fetch(self::fetchMode);
-
-        if ($row === false) {
-            throw new \Exception('Unable to obtain source info for module id: ' . $moduleID);
-        }
-
-        return new SourceEntity($row);
-    }
+//    public function getSourceInfoByModuleID($moduleID)
+//    {
+//        $row = $this->ds->createQueryBuilder()
+//            ->select('si.*')
+//            ->from('module_source_info', 'si')
+//            ->andWhere('si.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
+//            ->execute()
+//            ->fetch(self::fetchMode);
+//
+//        if ($row === false) {
+//            throw new \Exception('Unable to obtain source info for module id: ' . $moduleID);
+//        }
+//
+//        return new SourceEntity($row);
+//    }
 
     public function getAuthorsByModuleID($moduleID)
     {
@@ -141,6 +141,72 @@ class Module extends BaseStorage
             $ent[] = new ModuleEntity($r);
         }
         return $ent;
+    }
+
+    public function create(ModuleEntity $entity)
+    {
+        $data = $entity->toInsertArray();
+        $data['last_updated'] = date('Y-m-d h:i:s');
+
+        $rowsAffected = $this->ds->insert(self::tableName, $data);
+        return $this->ds->lastInsertId();
+    }
+
+    public function setCompleted($moduleID, $flag)
+    {
+        $rowsAffected = $this->ds->update(
+            self::tableName,
+            array('is_completed' => (int) $flag, 'last_updated' => date('Y-m-d h:i:s')),
+            array('id' => $moduleID)
+        );
+        return true;
+    }
+
+    /**
+     * Update the description of the specified module
+     *
+     * @param integer $moduleID
+     * @param string $desc
+     * @return bool True if rows were updated. False if not
+     */
+    public function updateDescription($moduleID, $desc)
+    {
+        $rowsAffected = $this->ds->update(
+            self::tableName,
+            array('description' => $desc, 'last_updated' => date('Y-m-d i:h:s')),
+            array('id' => $moduleID)
+        );
+
+        // If you pass in the same desc twice then affected rows is 0, but it successfully ran the query
+        return true;
+    }
+
+    /**
+     * Check if a module exists by the given title
+     *
+     * @param string $title
+     * @return bool
+     * @throws \Exception On SQL failure
+     */
+    public function existsByTitle($title)
+    {
+
+        $row = $this->ds->createQueryBuilder()
+            ->select('count(id) as count')
+            ->from(self::tableName, 'm')
+            ->andWhere('m.title = :moduleID')->setParameter(':moduleID', $title)
+            ->execute()
+            ->fetch(self::fetchMode);
+
+        if ($row === false) {
+            throw new \Exception('Unable to obtain module by title');
+        }
+
+        if(isset($row['count']) && intval($row['count']) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
 }

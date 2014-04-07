@@ -11,12 +11,13 @@ class ModuleEntity
     protected $num_downloads;
     protected $title;
     protected $author_id;
+    protected $github_url;
+    protected $is_completed;
 
     // Virtual Properties
     protected $comments = array();
     protected $authors = array();
     protected $screenshots = array();
-    protected $sourceInfo = array();
 
     public function __construct($data = array())
     {
@@ -33,7 +34,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $author_id
+     * @param string $author_id
      */
     public function setAuthorId($author_id)
     {
@@ -41,7 +42,7 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAuthorId()
     {
@@ -49,7 +50,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $author_name
+     * @param string $author_name
      */
     public function setAuthorName($author_name)
     {
@@ -57,7 +58,7 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAuthorName()
     {
@@ -89,7 +90,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $description
+     * @param string $description
      */
     public function setDescription($description)
     {
@@ -97,7 +98,7 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDescription()
     {
@@ -105,7 +106,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $id
+     * @param integer $id
      */
     public function setId($id)
     {
@@ -113,7 +114,7 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -121,7 +122,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $last_updated
+     * @param string $last_updated
      */
     public function setLastUpdated($last_updated)
     {
@@ -129,7 +130,7 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastUpdated()
     {
@@ -137,7 +138,7 @@ class ModuleEntity
     }
 
     /**
-     * @param mixed $num_downloads
+     * @param integer $num_downloads
      */
     public function setNumDownloads($num_downloads)
     {
@@ -145,12 +146,40 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getNumDownloads()
     {
         return $this->num_downloads;
     }
+
+    /**
+     * @param string $is_completed
+     */
+    public function setIsCompleted($is_completed)
+    {
+        $this->is_completed = $is_completed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsCompleted()
+    {
+        return $this->is_completed;
+    }
+
+    /**
+     * Check if this entity has been completed
+     *
+     * @return bool
+     */
+    public function isCompleted()
+    {
+        return (bool) $this->getIsCompleted();
+    }
+
+
 
     /**
      * @param array $screenshots
@@ -177,7 +206,7 @@ class ModuleEntity
     }
     
     /**
-     * @param mixed $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -185,22 +214,40 @@ class ModuleEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
     }
 
-    public function setSourceInfo($sourceInfo)
+    /**
+     * @param string $github_url
+     */
+    public function setGithubUrl($github_url)
     {
-        $this->sourceInfo = $sourceInfo;
+        $this->github_url = $github_url;
     }
 
-    public function getSourceInfo()
+    /**
+     * @return string
+     */
+    public function getGithubUrl()
     {
-        return $this->sourceInfo;
+        return $this->github_url;
     }
 
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+
+    public function toInsertArray()
+    {
+        $this->setNumDownloads(0);
+        $vars = $this->toArray();
+        unset($vars['id'], $vars['comments'], $vars['authors'], $vars['screenshots']);
+        return $vars;
+    }
 
 }
