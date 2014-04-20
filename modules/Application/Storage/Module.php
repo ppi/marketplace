@@ -36,7 +36,11 @@ class Module extends BaseStorage
     {
 
         $row = $this->ds->createQueryBuilder()
-            ->select('m.*, mi.content as installation_details, md.content as description')
+            ->select(
+                'm.id, m.title, m.author_id, m.github_url, m.last_updated, m.is_completed, m.created,
+                 IFNULL(m.num_stars, 0) as num_stars, IFNULL(m.num_downloads, 0) as num_downloads,
+                 m.short_description, mi.content as installation_details, md.content as description'
+            )
             ->from(self::tableName, 'm')
             ->leftJoin('m', 'module_installation', 'mi', 'm.id = mi.module_id')
             ->leftJoin('m', 'module_description' ,'md', 'm.id = md.module_id')

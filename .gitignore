@@ -2,6 +2,7 @@
 app/cache/*
 app/logs/*
 public/modules/*
+module/UserModule/resources/config/config.yml
 vendor
 composer.phar
 .DS_Store

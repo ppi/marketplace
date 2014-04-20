@@ -3,6 +3,7 @@ namespace UserModule;
 
 use PPI\Module\Module as BaseModule;
 use PPI\Autoload;
+use League\OAuth2\Client\Provider\Github as GithubProvider;
 
 class Module extends BaseModule
 {
@@ -20,7 +21,7 @@ class Module extends BaseModule
      */
     public function getConfig()
     {
-        return include(__DIR__ . '/resources/config/config.php');
+        return $this->loadConfig('config.yml');
     }
 
     /**
@@ -60,6 +61,22 @@ class Module extends BaseModule
                 $helper->setConfigSalt($config['user']['userSalt']);
                 $helper->setUserStorage($sm->get('user.storage'));
                 return $helper;
+            },
+
+            'auth.service.provider' => function($sm) {
+                $config = $sm->get('config');
+
+                if(!isset($config['auth'])) {
+                    throw new \Exception('Missing auth config');
+                }
+
+                $authConfig   = $config['auth'];
+                $clientId     = $authConfig['client_id'];
+                $clientSecret = $authConfig['client_secret'];
+                $redirectUri  = $sm->get('router')->generate($authConfig['redirect_uri_route']);
+                $provider = new GithubProvider(compact('clientId', 'clientSecret', 'redirectUri'));
+                    var_dump($provider); exit;
+                return $provider;
             }
             
         ));

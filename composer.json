@@ -17,7 +17,8 @@
         "doctrine/dbal": "2.2.*@stable",
         "knplabs/packagist-api": "1.*@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
-        "intervention/image": "1.*"
+        "intervention/image": "1.*",
+        "league/oauth2-client": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

@@ -15,7 +15,26 @@ class Auth extends SharedController
         if ($this->isLoggedIn()) {
             return $this->redirectToRoute('User_Account');
         }
-        return $this->render('UserModule:auth:login.html.php');
+
+        $authProvider = $this->getService('auth.service.provider');
+        if( ($authCode = $this->queryString('code', null)) !== null) {
+            $authProvider->authorize();
+        } else {
+
+            try {
+                $token = $authProvider->getAccessToken('authorization_code', array('code' => $authCode));
+
+                $userDetails = $authProvider->getUserDetails($token);
+                foreach ($userDetails as $attribute => $value) {
+                    var_dump($attribute, $value) . PHP_EOL . PHP_EOL;
+                }
+                exit;
+            } catch(\Exception $e) {
+                throw new \Exception('Error performing github oauth: ' . $e->getMessage());
+            }
+
+        }
+
     }
 
     public function logoutAction()
