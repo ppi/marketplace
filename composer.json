@@ -16,6 +16,7 @@
         "ppi/twitter-bootstrap-module": "dev-develop",
         "doctrine/dbal": "2.2.*@stable",
         "knplabs/packagist-api": "1.*@dev",
+        "hwi/oauth-bundle": "0.4.*@dev",
         "intervention/image": "1.*"
     },
     "scripts": {
