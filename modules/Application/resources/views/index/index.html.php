@@ -17,7 +17,7 @@
                 Created by <?php echo $pml->getAuthorName(); ?> on <?php echo $pml->getCreated()->format('d/m/Y'); ?>
             </div>
             <div class="description">
-                <?php echo $pml->getDescription(); ?>
+                <?php echo $pml->getShortDescription(); ?>
             </div>
        </div>
     <?php endforeach; ?>
@@ -35,7 +35,7 @@
                 Created by <?php echo $uml->getAuthorName(); ?> on <?php echo $uml->getLastUpdated()->format('d/m/Y'); ?>
             </div>
             <div class="description">
-                <?php echo $uml->getDescription(); ?>
+                <?php echo $uml->getShortDescription(); ?>
             </div>
         </div>
     <?php endforeach; ?>

@@ -14,6 +14,7 @@ class ModuleEntity
     protected $author_id;
     protected $github_url;
     protected $is_completed;
+    protected $short_description;
 
     // Virtual Properties
     protected $author_firstname;
@@ -47,6 +48,22 @@ class ModuleEntity
     public function setAuthorId($author_id)
     {
         $this->author_id = $author_id;
+    }
+
+    /**
+     * @param mixed $short_description
+     */
+    public function setShortDescription($short_description)
+    {
+        $this->short_description = $short_description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShortDescription()
+    {
+        return $this->short_description;
     }
 
     /**
