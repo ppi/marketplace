@@ -13,9 +13,7 @@
             <div>
                 <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleID'=>$pml->getID())); ?>"><?php echo $pml->getTitle(); ?></a></h4>
             </div>
-            <div>
-                Created by <?php echo $pml->getAuthorName(); ?> on <?php echo $pml->getCreated()->format('d/m/Y'); ?>
-            </div>
+            <div>Created by <?php echo $pml->getAuthorName(); ?> on <?php echo $pml->getCreated()->format('d/m/Y'); ?></div>
             <div class="description">
                 <?php echo $pml->getShortDescription(); ?>
             </div>
