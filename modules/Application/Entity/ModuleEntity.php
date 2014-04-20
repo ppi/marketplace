@@ -18,12 +18,14 @@ class ModuleEntity
     protected $short_description;
 
     // Virtual Properties
+    protected $installation_details;
     protected $author_firstname;
     protected $author_lastname;
     protected $author_avatar;
     protected $comments = array();
     protected $authors = array();
     protected $screenshots = array();
+
 
     public function __construct($data = array())
     {
@@ -44,7 +46,25 @@ class ModuleEntity
     }
 
     /**
-     * @param int $num_stars
+     * @param string $details
+     */
+    public function setInstallationDetails($details)
+    {
+        $this->installation_details = $details;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstallationDetails()
+    {
+        return $this->installation_details;
+    }
+    
+    
+
+    /**
+     * @param integer $num_stars
      */
     public function setNumStars($num_stars)
     {

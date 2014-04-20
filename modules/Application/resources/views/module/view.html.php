@@ -27,7 +27,7 @@
                 </li>
 
                 <li>
-                    <a href="#installation" data-toggle="tab">
+                    <a href="#moduleInstallation" data-toggle="tab">
                         <i class="green icon-wrench bigger-110"></i>
                         Installation
                     </a>
@@ -81,6 +81,8 @@
                     </div>
                 </div>
 
+                <div class="tab-pane" id="moduleInstallation"><?= $selectedModule->getInstallationDetails(); ?></div>
+
                 <div class="tab-pane" id="support">
                     <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
                 </div>
@@ -110,16 +112,6 @@
                         <?php endforeach; ?>
                     </div>
 
-                </div>
-
-                <div class="tab-pane" id="installation">
-                    <ul>
-                        <li>Something</li>
-                        <li>Something 1</li>
-                        <li>Something 2</li>
-                        <li>Something 3</li>
-                        <li>Something 4</li>
-                    </ul>
                 </div>
 
                 <div class="tab-pane" id="source">
@@ -210,6 +202,8 @@
     $('a.cboxElement').colorbox({close:'X', next:'>', previous:'<'});
     var markedupHTML = markdown.toHTML($('#moduleDescription').html());
     $('#moduleDescription').html(markedupHTML);
+    markedupHTML = markdown.toHTML($('#moduleInstallation').html());
+    $('#moduleInstallation').html(markedupHTML);
 </script>
 <?php $view['slots']->stop(); ?>
 

@@ -36,8 +36,10 @@ class Module extends BaseStorage
     {
 
         $row = $this->ds->createQueryBuilder()
-            ->select('m.*')
+            ->select('m.*, mi.content as installation_details, md.content as description')
             ->from(self::tableName, 'm')
+            ->leftJoin('m', 'module_installation', 'mi', 'm.id = mi.module_id')
+            ->leftJoin('m', 'module_description' ,'md', 'm.id = md.module_id')
             ->andWhere('m.id = :moduleID')->setParameter(':moduleID', $moduleID)
             ->execute()
             ->fetch(self::fetchMode);
@@ -242,5 +244,6 @@ class Module extends BaseStorage
         }
         return $ent;
     }
+
 
 }
