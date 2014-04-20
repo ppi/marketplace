@@ -6,14 +6,11 @@ class User
 {
 
     protected $id;
-    protected $company_id;
 
-    protected $title;
-    protected $firstname;
-    protected $lastname;
+    protected $username;
+    protected $name;
     protected $email;
-    protected $user_level_id;
-    protected $user_level_title;
+    protected $github_uid;
 
     public function __construct($data = array())
     {
@@ -25,74 +22,95 @@ class User
 
     }
 
+    /**
+     * @return integer
+     */
     public function getID()
     {
         return $this->id;
     }
 
-    public function setID($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    public function getFirstName()
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstName($fname)
-    {
-        $this->firstname = $fname;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastname;
-    }
-
-    public function setLastName($lname)
-    {
-        $this->lastname = $lname;
-    }
-
-    public function getFullName()
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
+    /**
+     * @param string $email
+     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    public function getLevelID()
+    /**
+     * @return string
+     */
+    public function getEmail()
     {
-        return $this->user_level_id;
+        return $this->email;
     }
 
-    public function getLevelTitle()
+    /**
+     * @param integer $githubUid
+     */
+    public function setGithubUid($githubUid)
     {
-        return $this->user_level_title;
+        $this->github_uid = $githubUid;
     }
 
-    public function getCompanyID()
+    /**
+     * @return integer
+     */
+    public function getGithubUid()
     {
-        return $this->company_id;
+        return $this->github_uid;
     }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+
+    public function toInsertArray()
+    {
+        $vars = get_object_vars($this);
+        unset($vars['id']);
+        return $vars;
+    }
+
+    public function getFullName()
+    {
+        return $this->name;
+    }
+
+    
 
 }

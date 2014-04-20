@@ -220,7 +220,7 @@ class Module extends BaseStorage
             ->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar')
             ->from(self::tableName, 't')
             ->leftJoin('t', 'module_author', 'a', 't.author_id = a.id')
-            ->orderBy('t.stars', 'ASC')
+            ->orderBy('t.num_stars', 'ASC')
             ->setMaxResults(10)
             ->execute()
             ->fetchAll(self::fetchMode);

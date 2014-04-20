@@ -13,24 +13,34 @@ class Auth extends SharedController
     public function loginAction()
     {
         if ($this->isLoggedIn()) {
-            return $this->redirectToRoute('User_Account');
+            return $this->redirectToRoute('Homepage');
         }
 
         $authProvider = $this->getService('auth.service.provider');
-        if( ($authCode = $this->queryString('code', null)) !== null) {
+        if( ($authCode = $this->queryString('code', null)) === null) {
             $authProvider->authorize();
         } else {
 
             try {
-                $token = $authProvider->getAccessToken('authorization_code', array('code' => $authCode));
 
+                // Setup github token and get github acct details
+                $token = $authProvider->getAccessToken('authorization_code', array('code' => $authCode));
                 $userDetails = $authProvider->getUserDetails($token);
-                foreach ($userDetails as $attribute => $value) {
-                    var_dump($attribute, $value) . PHP_EOL . PHP_EOL;
+
+                // Make account if this user hasn't been here before
+                $accountHelper = $this->getService('user.account.helper');
+                if(!$accountHelper->existsByGithubUID($userDetails->uid)) {
+                    $accountHelper->createAccountFromProviderDetails($userDetails);
                 }
-                exit;
+
+                // Log the user in
+                $loginHelper = $this->getService('login.helper');
+                $loginHelper->login($accountHelper->getByGithubUid($userDetails->uid));
+
+                return $this->redirectToRoute('Homepage');
+
             } catch(\Exception $e) {
-                throw new \Exception('Error performing github oauth: ' . $e->getMessage());
+                throw $e;
             }
 
         }

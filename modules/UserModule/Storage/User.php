@@ -6,6 +6,9 @@ use UserModule\Entity\User as UserEntity;
 
 class User extends BaseStorage
 {
+
+    const TABLE_NAME = 'user';
+
     protected $_meta = array(
         'conn'    => 'main',
         'table'   => 'io_users',
@@ -42,24 +45,6 @@ class User extends BaseStorage
 
     }
     
-    public function findWithLevelByEmail($email)
-    {
-        
-        $row = $this->createQueryBuilder()
-            ->select('u.*, ul.title user_level_title')
-            ->from($this->getTableName(), 'u')
-            ->andWhere('u.email = :email')->setParameter(':email', $email)
-            ->leftJoin('u', 'user_level', 'ul', 'u.user_level_id = ul.id')
-            ->execute()
-            ->fetch($this->getFetchMode());
-        
-        if($row === false) {
-            throw new \Exception('Invalid User Row');
-        }
-        
-        return $row;
-    }
-
     /**
      * Find a user record by the email
      *
@@ -196,19 +181,32 @@ class User extends BaseStorage
         return $row['total'] > 0;
     }
 
-    public function getByProviderId($identifier)
+    public function existsByGithubUID($uid)
     {
-
-        $row = $this->createQueryBuilder()
-            ->select('u.*, usl.*')
+        $row = $this->ds->createQueryBuilder()
+            ->select('count(id) as total')
             ->from($this->getTableName(), 'u')
-            ->innerJoin('u', 'user_social_login', 'usl', 'usl.user_id = u.id')
-            ->andWhere('usl.provider_id = :identifier')
-            ->setParameter(':identifier', $identifier)
+            ->andWhere('u.github_uid = :id')
+            ->setParameter(':id', $uid)
             ->execute()
             ->fetch($this->getFetchMode());
 
-        return $row !== false ? new UserEntity($row) : array();
+        return $row['total'] > 0;
+    }
+
+
+    public function getByGithubUID($uid)
+    {
+
+        $row = $this->ds->createQueryBuilder()
+            ->select('u.*')
+            ->from($this->getTableName(), 'u')
+            ->andWhere('u.github_uid = :uid')
+            ->setParameter(':uid', $uid)
+            ->execute()
+            ->fetch($this->getFetchMode());
+
+        return $row !== false ? new UserEntity($row) : false;
     }
 
     /**
@@ -236,145 +234,12 @@ class User extends BaseStorage
     /**
      * Create a user record
      *
-     * @param  array $userData
-     * @return mixed
+     * @param  UserEntity $user
+     * @return integer
      */
-    public function create(array $userData, $configSalt)
+    public function create(UserEntity $user)
     {
-        
-        // Override the plaintext pass with the encrypted one 
-        $userData['password'] = $this->saltPass($userData['salt'], $configSalt, $userData['password']);
-        
-        return $this->insert($userData);
-    }
-    
-    public function updatePassword($userID, $userSalt, $configSalt, $password) {
-        $this->update(
-            array('password' => $this->saltPass($userSalt, $configSalt, $password)),
-            array('id' => $userID)
-        ); 
-    }
-    
-    /**
-   	 * Salt the password
-   	 * 
-   	 * @param string $userSalt
-   	 * @param string $configSalt
-   	 * @param string $pass
-   	 * @return string
-   	 */
-   	function saltPass($userSalt, $configSalt, $pass) {
-   		return sha1($userSalt . $configSalt . $pass);
-   	}
-    
-    /**
-    * Check the authentication fields to make sure things auth properly
-    * 
-    * @param string $email
-    * @param string $password
-    * @param string $configSalt
-    * @return boolean
-    */
-    function checkAuth($email, $password, $configSalt) {
-    
-        $user = $this->findByEmail($email);
-        
-        if(empty($user)) {
-            return false;
-        }
-        
-        $encPass = $this->saltPass($user['salt'], $configSalt, $password);
-        $row = $this->_conn->createQueryBuilder()
-            ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
-            ->andWhere('u.email = :email')
-            ->andWhere('u.password = :password')
-            ->setParameter(':email', $email)
-            ->setParameter(':password', $encPass)
-            ->execute()
-            ->fetch($this->getFetchMode());
-        
-        return $row['total'] > 0;
-    }
-
-    /**
-     * Verify a user by their email and password
-     * 
-     * @param string $userSalt
-     * @param string $configSalt
-     * @param string $userEmail
-     * @param string $password
-     * @return bool
-     */
-    public function verifyPassword($userSalt, $configSalt, $userEmail, $password)
-    {
-        
-        $encPass = $this->saltPass($userSalt, $configSalt, $password);
-        
-        $row = $this->createQueryBuilder()
-            ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
-            ->andWhere('u.email = :email')
-            ->andWhere('u.password = :password')
-            ->setParameter(':email', $userEmail)
-            ->setParameter(':password', $encPass)
-            ->execute()
-            ->fetch($this->getFetchMode());
-        
-        return $row['total'] > 0;
-        
-    }
-
-    /**
-     * Count all the records
-     * 
-     * @return mixed
-     */
-    public function countAll()
-    {
-        $row = $this->_conn->createQueryBuilder()
-            ->select('count(id) as total')
-            ->from($this->getTableName(), 'u')
-            ->execute()
-            ->fetch($this->getFetchMode());
-        
-        return $row['total'];
-        
-    }
-
-    /**
-     * Get entity objects from all users rows
-     *
-     * @return array
-     */
-    public function getAll()
-    {
-        $entities = array();
-        $rows = $this->fetchAll();
-        foreach ($rows as $row) {
-            $entities[] = new UserEntity($row);
-        }
-
-        return $entities;
-
-    }
-    
-    public function getAllForIndex()
-    {
-        $rows = $this->createQueryBuilder()
-            ->select('u.*, um.user_value as city')
-            ->from($this->getTableName(), 'u')
-            ->leftJoin('u', 'user_meta', 'um', '(u.id = um.user_id AND um.user_key = "city")')
-            ->execute()
-            ->fetchAll($this->getFetchMode());
-        
-        $ent = array();
-        foreach($rows as $r) {
-            $e = new UserEntity($r);
-            $e->setMetaField('city', $r['city']);
-            $ent[] = $e;
-        }
-        return $ent;
+        return $this->ds->insert(self::TABLE_NAME, $user->toInsertArray());
     }
     
     public function rowsToEntities($rows) {
@@ -383,6 +248,16 @@ class User extends BaseStorage
             $ent[] = new UserEntity($r);
         }
         return $ent;
+    }
+
+    protected function getTableName()
+    {
+        return self::TABLE_NAME;
+    }
+
+    protected function getFetchMode()
+    {
+        return \PDO::FETCH_ASSOC;
     }
 
 }

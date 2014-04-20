@@ -101,7 +101,7 @@
 
                         <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li class="divider"></li>
-                            <li><a href="<?=$view['router']->generate('User_Logout');?>"><i class="icon-off"></i> Logout</a></li>
+                            <li><a href="<?=$view['router']->generate('UserAuth_Logout');?>"><i class="icon-off"></i> Logout</a></li>
                         </ul>
                         <?php else: ?>
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">

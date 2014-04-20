@@ -12,6 +12,9 @@ class Module extends BaseModule
     public function init($e)
     {
         Autoload::add(__NAMESPACE__, dirname(__DIR__));
+//        if(!defined('PHP_QUERY_RFC1738')) {
+//            define('PHP_QUERY_RFC1738', 1);
+//        }
     }
     
     /**
@@ -40,7 +43,7 @@ class Module extends BaseModule
         return array('factories' => array(
             
             'user.storage' => function($sm) {
-                 return new \UserModule\Storage\User($sm->get('datasource'));
+                 return new \UserModule\Storage\User($sm->get('datasource')->getConnection('main'));
              },
             
             'user.security' => function($sm) {
@@ -50,15 +53,19 @@ class Module extends BaseModule
                 $us->setConfig($sm->get('config'));
                 return $us;
             },
+
+            'login.helper' => function($sm) {
+                $us = new \UserModule\Classes\UserSecurity();
+                $us->setSession($sm->get('session'));
+                return $us;
+            },
             
             'user.security.templating.helper' => function($sm) {
                 return new \UserModule\Classes\UserSecurityTemplatingHelper($sm->get('user.security'));
             },
 
             'user.account.helper' => function($sm) {
-                $config = $sm->get('config');
                 $helper = new \UserModule\Classes\AccountHelper();
-                $helper->setConfigSalt($config['user']['userSalt']);
                 $helper->setUserStorage($sm->get('user.storage'));
                 return $helper;
             },
@@ -73,9 +80,8 @@ class Module extends BaseModule
                 $authConfig   = $config['auth'];
                 $clientId     = $authConfig['client_id'];
                 $clientSecret = $authConfig['client_secret'];
-                $redirectUri  = $sm->get('router')->generate($authConfig['redirect_uri_route']);
+                $redirectUri  = $sm->get('router')->generate($authConfig['redirect_uri_route'], array(), true);
                 $provider = new GithubProvider(compact('clientId', 'clientSecret', 'redirectUri'));
-                    var_dump($provider); exit;
                 return $provider;
             }
             
