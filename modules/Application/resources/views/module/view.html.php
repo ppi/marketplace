@@ -1,7 +1,12 @@
 <?php $view->extend('::base.html.php'); ?>
 
     <div class="page-header">
-        <h1><?=$view->escape($selectedModule->getTitle());?></h1>
+        <div class="left">
+            <h1><?=$view->escape($selectedModule->getTitle());?></h1>
+        </div>
+        <div class="right">
+            <i class="icon-star-o"></i>
+        </div>
     </div>
 
     <div class="col-sm-8">
@@ -160,7 +165,7 @@
 						<div class="profile-info-name"> Rating </div>
 				
 						<div class="profile-info-value">
-							<span>0 out of 5.00<br>from 0 users</span>
+							<span><?=$selectedModule->getNumStars();?></span>
 						</div>
 					</div>
 				

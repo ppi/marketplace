@@ -14,6 +14,7 @@ class ModuleEntity
     protected $author_id;
     protected $github_url;
     protected $is_completed;
+    protected $num_stars;
 
     // Virtual Properties
     protected $author_firstname;
@@ -39,6 +40,22 @@ class ModuleEntity
             $this->created = new \DateTime($this->created);
         }
 
+    }
+
+    /**
+     * @param int $num_stars
+     */
+    public function setNumStars($num_stars)
+    {
+        $this->num_stars = $num_stars;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumStars()
+    {
+        return $this->num_stars;
     }
 
     /**
