@@ -5,11 +5,7 @@ return array(
     'active_modules' => array(
         'Framework',
         'Application',
-        'UserModule',
-        'PPI\BowerModule',
-        'PPI\SmartyModule',
-        'PPI\TwigModule',
-        'PPI\TwitterBootstrapModule'
+        'UserModule'
     ),
     'module_listener_options' => array(
         'cache_dir'                => '%app.cache_dir%',
