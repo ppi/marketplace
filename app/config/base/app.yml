@@ -6,10 +6,6 @@ modules:
         - Framework
         - Application
         - UserModule
-        - PPI\BowerModule
-        - PPI\SmartyModule
-        - PPI\TwigModule
-        - PPI\TwitterBootstrapModule
     module_listener_options:
         cache_dir: "%app.cache_dir%"
         config_cache_enabled: false
