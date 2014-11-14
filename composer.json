@@ -6,15 +6,10 @@
         }
     ],
     "require": {
-        "ppi/framework": "dev-develop",
-        "ppi/bower-module": "dev-develop",
+        "ppi/framework": "2.1.*@dev",
         "ppi/cache-module": "dev-master",
         "ppi/distribution-module": "dev-develop",
         "ppi/mustache-module": "dev-develop",
-        "ppi/smarty-module": "dev-develop",
-        "ppi/twig-module": "dev-develop",
-        "ppi/twitter-bootstrap-module": "dev-develop",
-        "doctrine/dbal": "2.2.*@stable",
         "knplabs/packagist-api": "1.*@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
         "intervention/image": "1.*",
@@ -32,9 +27,6 @@
     },
     "minimum-stability": "dev",
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.1-dev"
-        },
         "ppi-app-dir": "app",
         "ppi-web-dir": "public",
         "ppi-assets-install": "symlink"
