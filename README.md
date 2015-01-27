@@ -36,4 +36,4 @@ Fork the repo, push your changes to your fork, and submit a pull request.
 
 Requirements
 ------------
-* PHP 5.3.3+ (this is the base requirement of symfony2, so we must comply with that)
+* PHP 5.3.23+ (this is the base requirement of zend framework 2, so we must comply with that)
