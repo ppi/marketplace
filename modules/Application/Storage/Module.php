@@ -248,6 +248,32 @@ class Module extends BaseStorage
         }
         return $ent;
     }
+    
+    public function searchModules($query) {
+        $qb = $this->ds->createQueryBuilder();
+        $qb->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar');
+        $qb->from(self::tableName, 't');
+        $qb->leftJoin('t', 'module_author', 'a', 't.author_id = a.id');        
+       
+        if($query != '' && $query !== '%') {
+            $qb->andWhere($qb->expr()->orX(
+                    $qb->expr()->like('t.title', ':title'),
+                    $qb->expr()->like('t.short_description', ':description')
+            ))
+            ->setParameter(':title', '%' . $query . '%')
+            ->setParameter(':description',  '%' . $query . '%');
+        }                
+                
+                
+        $qb->orderBy('t.last_updated', 'ASC');
+        $rows = $qb->execute()->fetchAll(self::fetchMode);
+        
+        $ent = array();
+        foreach ($rows as $r) {
+            $ent[] = new ModuleEntity($r);
+        }
+        return $ent;
+    }
 
 
 }

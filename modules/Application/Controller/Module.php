@@ -141,4 +141,16 @@ class Module extends SharedController
         die($screenshotPath);
 
     }
+    
+    function searchAction() {
+        //get the query string from url
+        $query = $this->getQueryString()->get('q');
+        
+        //get the listings based of the query 
+        $listings = $this->getService('module.helper')->searchModules($query);
+        
+        //return the view
+        return $this->render('Application:module:search.html.php', compact('query', 'listings'));
+        
+    }
 }

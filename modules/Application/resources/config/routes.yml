@@ -29,3 +29,7 @@ Module_Finish:
 Module_View:
     pattern:  /module/view/{moduleID}
     defaults: { _controller: "Application:Module:view"}
+ 
+Module_Search:
+    pattern:  /module/search
+    defaults: { _controller: "Application:Module:search"}    

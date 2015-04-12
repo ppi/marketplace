@@ -9,9 +9,9 @@
 
     <!-- basic styles -->
 
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/assets/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/assets/css/colorbox.css">
+    <link href="<?php echo $view['assets']->getUrl('assets/css/bootstrap.min.css'); ?>" rel="stylesheet"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/font-awesome.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/colorbox.css'); ?>"/>
 
     <!--[if IE 7]>
     <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css"/>
@@ -21,14 +21,14 @@
 
     <!-- fonts -->
 
-    <link rel="stylesheet" href="/assets/css/ace-fonts.css"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/ace-fonts.css'); ?>"/>
 
     <!-- ace styles -->
 
-    <link rel="stylesheet" href="/assets/css/ace.min.css"/>
-    <link rel="stylesheet" href="/assets/css/ace-rtl.min.css"/>
-    <link rel="stylesheet" href="/assets/css/ace-skins.min.css"/>
-    <link rel="stylesheet" href="/assets/css/dropzone.css"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/ace.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/ace-rtl.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/ace-skins.min.css'); ?>"/>
+    <link rel="stylesheet" href="<?php echo $view['assets']->getUrl('assets/css/dropzone.css'); ?>"/>
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="/assets/css/ace-ie.min.css"/>
@@ -39,7 +39,7 @@
 
     <!-- ace settings handler -->
 
-    <script src="/assets/js/ace-extra.min.js"></script>	
+    <script src="<?php echo $view['assets']->getUrl('assets/js/ace-extra.min.js'); ?>"></script>	
 	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -161,22 +161,29 @@
                 <!-- #sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
-                    <li class="active">
+                    <li id="dashboard" class="active">
                         <a href="index.html">
                             <i class="icon-dashboard"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
                     </li>
-
-                    <?php if(isset($view['navigation'])): ?>
-                    <?php foreach($view['navigation']->getItems() as $navItem): ?>
-                    <li>
-                        <a href="<?=$navItem->getHref();?>">
-                            <i class="icon-<?=$navItem->getIconSuffix();?>"></i>
-                            <span class="menu-text"><?=$view->escape($navItem->getTitle());?></span>
+                    
+                    <li id="search">
+                        <a href="<?php echo $view['router']->generate('Module_Search'); ?>">
+                            <i class="icon-search"></i>
+                            <span class="menu-text"> Search </span>
                         </a>
                     </li>
-                    <?php endforeach; ?>
+
+                    <?php if(isset($view['navigation'])): ?>
+                        <?php foreach($view['navigation']->getItems() as $navItem): ?>
+                            <li>
+                                <a href="<?=$navItem->getHref();?>">
+                                    <i class="icon-<?=$navItem->getIconSuffix();?>"></i>
+                                    <span class="menu-text"><?=$view->escape($navItem->getTitle());?></span>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     <?php endif; ?>
 
                 </ul>
@@ -252,7 +259,7 @@
 
     <!--[if !IE]> -->
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+        window.jQuery || document.write("<script src='<?php echo $view['assets']->getUrl('assets/js/jquery-2.0.3.min.js'); ?>'>" + "<" + "/script>");
     </script>
     <!-- <![endif]-->
 
@@ -265,8 +272,8 @@
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/typeahead-bs2.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/bootstrap.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/typeahead-bs2.min.js'); ?>"></script>
 
     <!-- page specific plugin scripts -->
 
@@ -274,26 +281,26 @@
     <script src="/assets/js/excanvas.min.js"></script>
     <![endif]-->
 
-    <script src="/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="/assets/js/jquery.slimscroll.min.js"></script>
-    <script src="/assets/js/jquery.easy-pie-chart.min.js"></script>
-    <script src="/assets/js/jquery.sparkline.min.js"></script>
-    <script src="/assets/js/flot/jquery.flot.min.js"></script>
-    <script src="/assets/js/flot/jquery.flot.pie.min.js"></script>
-    <script src="/assets/js/flot/jquery.flot.resize.min.js"></script>
-    <script src="/assets/js/dropzone.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/jquery-ui-1.10.3.custom.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.ui.touch-punch.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.slimscroll.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.easy-pie-chart.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/jquery.sparkline.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/flot/jquery.flot.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/flot/jquery.flot.pie.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/flot/jquery.flot.resize.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/dropzone.min.js'); ?>"></script>
 
     <!-- ace scripts -->
 
-    <script src="/assets/js/ace-elements.min.js"></script>
-    <script src="/assets/js/ace.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/ace-elements.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('assets/js/ace.min.js'); ?>"></script>
 
     <!-- ace fuelux wizard -->
-    <script src="/assets/js/fuelux/fuelux.wizard.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/fuelux/fuelux.wizard.min.js"></script>
 
-    <script src="/assets/js/bootbox.min.js"></script>
-    <script src="/assets/js/jquery.colorbox-min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/bootbox.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/jquery.colorbox-min.js"></script>
     
 
     <!-- inline scripts related to this page -->

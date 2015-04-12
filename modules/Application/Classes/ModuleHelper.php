@@ -95,4 +95,8 @@ class ModuleHelper
     public function getUpdatedModules() {
         return $this->moduleStorage->getUpdatedModules();
     }
+    
+    public function searchModules($query) {
+        return $this->moduleStorage->searchModules($query);
+    }
 }
