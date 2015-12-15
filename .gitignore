@@ -6,6 +6,7 @@ public/modules/*
 module/UserModule/resources/config/config.yml
 vendor
 composer.phar
+composer.lock
 .DS_Store
 # Backup files created by IDEs
 *~
