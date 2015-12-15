@@ -1,11 +1,11 @@
 <?php
 namespace UserModule;
 
-use PPI\Module\Module as BaseModule;
-use PPI\Autoload;
+use PPI\Framework\Module\AbstractModule;
+use PPI\Framework\Autoload;
 use League\OAuth2\Client\Provider\Github as GithubProvider;
 
-class Module extends BaseModule
+class Module extends AbstractModule
 {
     protected $_moduleName = 'UserModule';
 

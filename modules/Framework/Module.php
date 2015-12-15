@@ -1,11 +1,12 @@
 <?php
 namespace Framework;
 
-use PPI\Module\Module as BaseModule;
-use PPI\Autoload;
+use PPI\Framework\Module\AbstractModule;
+use PPI\Framework\Autoload;
 
 
-class Module extends BaseModule {
+class Module extends AbstractModule
+{
 	
 	protected $_moduleName = 'Framework';
 	

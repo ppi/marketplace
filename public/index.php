@@ -11,7 +11,7 @@ $env     = getenv('PPI_ENV') ?: 'dev';
 $debug   = getenv('PPI_DEBUG') !== '0'  && $env !== 'prod';
 
 // Create our PPI App instance
-$app = new PPI\App(array(
+$app = new PPI\Framework\App(array(
     'environment'   => $env,
     'debug'         => $debug
 ));
@@ -20,4 +20,4 @@ $app = new PPI\App(array(
 $app->loadConfig($app->getEnvironment().'/app.php');
 
 // Load the application, match the URL and send an HTTP response
-$app->boot()->dispatch()->send();
+$app->run();
