@@ -4,9 +4,7 @@ app/logs/*
 app/config/base/datasource.php
 public/modules/*
 module/UserModule/resources/config/config.yml
-vendor
-composer.phar
-composer.lock
+
 .DS_Store
 # Backup files created by IDEs
 *~
@@ -16,3 +14,11 @@ composer.lock
 .idea
 .project
 .settings
+
+### Composer ###
+composer.phar
+composer.lock
+/vendor/
+
+### Vagrant ###
+.vagrant/
