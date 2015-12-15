@@ -9,9 +9,9 @@ $connections['main'] = array(
 
     'driver'     => 'pdo_mysql',
     'hostname'   => 'localhost',
-    'database'   => 'ppi_marketplace',
-    'username'   => 'root',
-    'password'   => '',
+    'database'   => 'ppi',
+    'username'   => 'ppi_user',
+    'password'   => 'ppi_passw0rd',
 
     'charset'    => 'utf8',
     'collation'  => 'utf8_unicode_ci',
