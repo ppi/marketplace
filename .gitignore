@@ -1,6 +1,7 @@
 # PPI directories
 app/cache/*
 app/logs/*
+app/config/base/datasource.php
 public/modules/*
 module/UserModule/resources/config/config.yml
 vendor
