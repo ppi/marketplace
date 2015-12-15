@@ -7,6 +7,7 @@ CREATE TABLE `module` (
   `last_updated` datetime DEFAULT NULL,
   `is_completed` tinyint(1) DEFAULT NULL,
   `stars` int(11) DEFAULT NULL,
+  `num_stars` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `short_description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
