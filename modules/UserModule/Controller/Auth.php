@@ -15,7 +15,6 @@ class Auth extends SharedController
         if ($this->isLoggedIn()) {
             return $this->redirectToRoute('Homepage');
         }
-
         $authProvider = $this->getService('auth.service.provider');
         if( ($authCode = $this->queryString('code', null)) === null) {
             $authProvider->authorize();
@@ -25,11 +24,11 @@ class Auth extends SharedController
 
                 // Setup github token and get github acct details
                 $token = $authProvider->getAccessToken('authorization_code', array('code' => $authCode));
-                $userDetails = $authProvider->getUserDetails($token);
-
+                $userDetails = $authProvider->getResourceOwner($token);
+var_dump($userDetails); exit;
                 // Make account if this user hasn't been here before
                 $accountHelper = $this->getService('user.account.helper');
-                if(!$accountHelper->existsByGithubUID($userDetails->uid)) {
+                if(!$accountHelper->existsByGithubUID($userDetails->getId())) {
                     $accountHelper->createAccountFromProviderDetails($userDetails);
                 }
 

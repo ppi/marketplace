@@ -8,11 +8,11 @@
     "require": {
         "ppi/framework": "dev-master",
         "ppi/distribution-module": "dev-master",
-        "ppi/datasource-module": "dev-master",
+        "ppi/datasource-module": "^1.0",
         "knplabs/packagist-api": "1.*@dev",
         "hwi/oauth-bundle": "0.4.*@dev",
         "intervention/image": "1.*",
-        "league/oauth2-client": "dev-master"
+        "league/oauth2-github": "^0.2.0"
     },
     "scripts": {
         "post-install-cmd": [

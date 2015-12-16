@@ -4,7 +4,8 @@ return array(
 'modules' => array(
     'Framework',
     'Application',
-    'UserModule'
+    'UserModule',
+    'PPI\DataSourceModule'
 ),
 'module_listener_options' => array(
     'cache_dir'                => '%app.cache_dir%',
