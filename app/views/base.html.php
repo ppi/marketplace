@@ -297,10 +297,10 @@
     <script src="<?php echo $view['assets']->getUrl('assets/js/ace.min.js'); ?>"></script>
 
     <!-- ace fuelux wizard -->
-    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/fuelux/fuelux.wizard.min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl('/assets/js/fuelux/fuelux.wizard.min.js'); ?>"></script>
 
-    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/bootbox.min.js"></script>
-    <script src="<?php echo $view['assets']->getUrl(''); ?>/assets/js/jquery.colorbox-min.js"></script>
+    <script src="<?php echo $view['assets']->getUrl('/assets/js/bootbox.min.js'); ?>"></script>
+    <script src="<?php echo $view['assets']->getUrl('/assets/js/jquery.colorbox-min.js'); ?>"></script>
     
 
     <!-- inline scripts related to this page -->
