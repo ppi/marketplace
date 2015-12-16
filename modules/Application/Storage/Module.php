@@ -159,6 +159,19 @@ class Module extends BaseStorage
         return $this->ds->lastInsertId();
     }
 
+    public function getDescByModuleId($id)
+    {
+        $row = $this->ds->createQueryBuilder()
+            ->select('md.content')
+            ->from('module_description', 'md')
+            ->andWhere('md.module_id = :id')->setParameter(':id', $id)
+            ->execute()
+            ->fetch(self::fetchMode);
+
+        return isset($row['content']) ? $row['content'] : '';
+
+    }
+
     public function setCompleted($moduleID, $flag)
     {
         $rowsAffected = $this->ds->update(

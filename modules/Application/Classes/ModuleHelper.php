@@ -26,10 +26,12 @@ class ModuleHelper
         $comments = $this->getCommentsByModuleID($id);
         $screenshots = $this->getScreenshotsByModuleID($id);
         $authors = $this->getAuthorsByModuleID($id);
+        $desc = $this->getDescByModuleId($id);
 
         $module->setComments($comments);
         $module->setScreenshots($screenshots);
         $module->setAuthors($authors);
+        $module->setDescription($desc);
 
         return $module;
     }
@@ -64,6 +66,11 @@ class ModuleHelper
     public function getScreenshotsByModuleID($moduleID)
     {
         return $this->moduleStorage->getScreenshotsByModuleID($moduleID);
+    }
+
+    public function getDescByModuleId($id)
+    {
+        return $this->moduleStorage->getDescByModuleId($id);
     }
 
 
