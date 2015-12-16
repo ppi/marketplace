@@ -39,8 +39,8 @@
 
     <!-- ace settings handler -->
 
-    <script src="<?php echo $view['assets']->getUrl('assets/js/ace-extra.min.js'); ?>"></script>	
-	
+    <script src="<?php echo $view['assets']->getUrl('assets/js/ace-extra.min.js'); ?>"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
@@ -162,12 +162,12 @@
 
                 <ul class="nav nav-list">
                     <li id="dashboard" class="active">
-                        <a href="index.html">
+                        <a href="<?=$view['router']->generate('Homepage');?>">
                             <i class="icon-dashboard"></i>
                             <span class="menu-text"> Dashboard </span>
                         </a>
                     </li>
-                    
+
                     <li id="search">
                         <a href="<?php echo $view['router']->generate('Module_Search'); ?>">
                             <i class="icon-search"></i>
@@ -301,7 +301,7 @@
 
     <script src="<?php echo $view['assets']->getUrl('/assets/js/bootbox.min.js'); ?>"></script>
     <script src="<?php echo $view['assets']->getUrl('/assets/js/jquery.colorbox-min.js'); ?>"></script>
-    
+
 
     <!-- inline scripts related to this page -->
     <?php $view['slots']->output('include_js_body'); ?>
