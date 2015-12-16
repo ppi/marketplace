@@ -213,7 +213,7 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home home-icon"></i>
-                            <li class=""><a href="/" title="Dashboard">Dashboard</a></li>
+                            <a href="/" title="Dashboard">Dashboard</a>
                         </li>
 
                     </ul>
