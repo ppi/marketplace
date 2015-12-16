@@ -178,8 +178,11 @@ class Module extends BaseStorage
     public function updateDescription($moduleID, $desc)
     {
         $rowsAffected = $this->ds->update(
-            self::tableName,
-            array('description' => $desc, 'last_updated' => date('Y-m-d h:i:s')),
+            'module_description',
+            array(
+                'content' => $desc,
+//                'last_updated' => date('Y-m-d h:i:s')
+            ),
             array('id' => $moduleID)
         );
 

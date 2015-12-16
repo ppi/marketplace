@@ -363,7 +363,8 @@ class ModuleEntity
         $vars = $this->toArray();
         unset(
             $vars['id'], $vars['comments'], $vars['authors'],
-            $vars['screenshots'], $vars['author_firstname'], $vars['author_lastname'], $vars['author_avatar']
+            $vars['screenshots'], $vars['author_firstname'], $vars['author_lastname'], $vars['author_avatar'],
+            $vars['description'], $vars['installation_details']
         );
         return $vars;
     }

@@ -7,15 +7,15 @@ use Application\Entity\ModuleEntity;
 
 class Module extends SharedController
 {
-    public function viewAction()
+    public function viewAction($moduleId)
     {
-        $moduleID       = $this->getRouteParam('moduleID');
-        $selectedModule = $this->getService('module.helper')->getByID($moduleID);
+        $selectedModule = $this->getService('module.helper')->getByID($moduleId);
         return $this->render('Application:module:view.html.php', compact('selectedModule'));
     }
 
     public function createAction()
     {
+//        var_dump($this->session()); exit;
         $sessionModule = $this->session('wizardModule');
         $hasWizardModule = $sessionModule !== null;
 

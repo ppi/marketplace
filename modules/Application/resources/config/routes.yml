@@ -27,7 +27,7 @@ Module_Finish:
     defaults: { _controller: "Application:Module:finish"}
 
 Module_View:
-    pattern:  /module/view/{moduleID}
+    pattern:  /module/view/{moduleId}
     defaults: { _controller: "Application:Module:view"}
  
 Module_Search:
