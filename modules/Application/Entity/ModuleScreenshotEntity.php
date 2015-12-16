@@ -77,6 +77,17 @@ class ModuleScreenshotEntity
         $this->thumb_path = $path;
     }
 
-    
+    public function toArray()
+    {
+        return get_object_vars($this);
+    }
+
+    public function toInsertArray()
+    {
+        $data = $this->toArray();
+        unset($data['id']);
+        return $data;
+    }
+
 
 }

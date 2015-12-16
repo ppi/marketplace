@@ -2,6 +2,7 @@
 namespace Application\Controller;
 
 use Application\Controller\Shared as SharedController;
+use Application\Entity\ModuleScreenshotEntity;
 use Packagist\Api\Client as PackagistClient;
 use Application\Entity\ModuleEntity;
 
@@ -113,9 +114,7 @@ class Module extends SharedController
 
         $file = $_FILES['file'];
 
-
-//        $moduleID = $this->session('wizardModule')->getID();
-        $moduleID = '1';
+        $moduleID = $this->session('wizardModule')->getID();
 
         // Check Ext
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -137,7 +136,16 @@ class Module extends SharedController
         $screenshotPath = $config['module']['screenshots_public_dir'] . '/' . $screenshotFilename;
         $ret = move_uploaded_file($file['tmp_name'], $screenshotPath);
 
-        die($screenshotPath);
+        $screenshotEntity = new ModuleScreenshotEntity();
+        $screenshotEntity->setModuleId($moduleID);
+        $screenshotEntity->setPath($screenshotFilename);
+
+        $this->getService('module.helper')->createScreenshot($screenshotEntity);
+
+        return json_encode([
+            'status' => 'success',
+            'data' => $screenshotEntity->toArray()
+        ]);
 
     }
     

@@ -159,6 +159,13 @@ class Module extends BaseStorage
         return $this->ds->lastInsertId();
     }
 
+    public function createScreenshot(ModuleScreenshotEntity $entity)
+    {
+        $data = $entity->toInsertArray();
+        $this->ds->insert('module_screenshot', $data);
+        return $this->ds->lastInsertId();
+    }
+
     public function getDescByModuleId($id)
     {
         $row = $this->ds->createQueryBuilder()

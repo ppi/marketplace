@@ -3,6 +3,7 @@
 namespace Application\Classes;
 
 use Application\Entity\ModuleEntity;
+use Application\Entity\ModuleScreenshotEntity;
 
 class ModuleHelper
 {
@@ -66,6 +67,16 @@ class ModuleHelper
     public function getScreenshotsByModuleID($moduleID)
     {
         return $this->moduleStorage->getScreenshotsByModuleID($moduleID);
+    }
+
+    /**
+     * @param ModuleScreenshotEntity $entity
+     *
+     * @return integer
+     */
+    public function createScreenshot(ModuleScreenshotEntity $entity)
+    {
+        return $this->moduleStorage->createScreenshot($entity);
     }
 
     public function getDescByModuleId($id)
