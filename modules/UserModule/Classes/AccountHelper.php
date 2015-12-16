@@ -78,10 +78,10 @@ class AccountHelper
     public function createAccountFromProviderDetails($details)
     {
         $entity = new UserEntity();
-        $entity->setName($details->name);
-        $entity->setEmail($details->email);
-        $entity->setUsername($details->nickname);
-        $entity->setGithubUid($details->uid);
+        $entity->setName($details->getName());
+        $entity->setEmail($details->getEmail());
+        $entity->setUsername($details->getNickname());
+        $entity->setGithubUid($details->getId());
         return $this->userStorage->create($entity);
     }
 

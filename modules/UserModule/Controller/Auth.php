@@ -25,7 +25,7 @@ class Auth extends SharedController
                 // Setup github token and get github acct details
                 $token = $authProvider->getAccessToken('authorization_code', array('code' => $authCode));
                 $userDetails = $authProvider->getResourceOwner($token);
-var_dump($userDetails); exit;
+
                 // Make account if this user hasn't been here before
                 $accountHelper = $this->getService('user.account.helper');
                 if(!$accountHelper->existsByGithubUID($userDetails->getId())) {
@@ -34,7 +34,7 @@ var_dump($userDetails); exit;
 
                 // Log the user in
                 $loginHelper = $this->getService('login.helper');
-                $loginHelper->login($accountHelper->getByGithubUid($userDetails->uid));
+                $loginHelper->login($accountHelper->getByGithubUid($userDetails->getId()));
 
                 return $this->redirectToRoute('Homepage');
 
