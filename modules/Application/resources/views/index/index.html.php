@@ -11,7 +11,7 @@
     <?php foreach($popularModulesList as $pml): ?>
        <div class="module-entry">
             <div>
-                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleID'=>$pml->getID())); ?>"><?php echo $pml->getTitle(); ?></a></h4>
+                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleId'=>$pml->getID())); ?>"><?php echo $pml->getTitle(); ?></a></h4>
             </div>
             <div>Created by <?php echo $pml->getAuthorName(); ?> on <?php echo $pml->getCreated()->format('d/m/Y'); ?></div>
             <div class="description">
@@ -27,7 +27,7 @@
     <?php foreach($updatedModulesList as $uml): ?>
         <div class="module-entry">
             <div>
-                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleID'=>$uml->getID())); ?>"><?php echo $uml->getTitle(); ?></a></h4>
+                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleId'=>$uml->getID())); ?>"><?php echo $uml->getTitle(); ?></a></h4>
             </div>
             <div>
                 Created by <?php echo $uml->getAuthorName(); ?> on <?php echo $uml->getLastUpdated()->format('d/m/Y'); ?>

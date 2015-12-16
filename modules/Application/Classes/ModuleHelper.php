@@ -88,15 +88,18 @@ class ModuleHelper
         return $this->moduleStorage->create($module);
     }
 
-    public function getPopularModules() {
+    public function getPopularModules()
+    {
         return $this->moduleStorage->getPopularModules();
     }
 
-    public function getUpdatedModules() {
+    public function getUpdatedModules()
+    {
         return $this->moduleStorage->getUpdatedModules();
     }
-    
-    public function searchModules($query) {
+
+    public function searchModules($query)
+    {
         return $this->moduleStorage->searchModules($query);
     }
 }

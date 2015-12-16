@@ -153,6 +153,7 @@ class Module extends BaseStorage
     {
         $data = $entity->toInsertArray();
         $data['last_updated'] = date('Y-m-d h:i:s');
+        $data['created'] = date('Y-m-d h:i:s');
 
         $rowsAffected = $this->ds->insert(self::tableName, $data);
         return $this->ds->lastInsertId();
@@ -177,10 +178,13 @@ class Module extends BaseStorage
      */
     public function updateDescription($moduleID, $desc)
     {
-        $rowsAffected = $this->ds->update(
+        $this->ds->delete('module_description', ['module_id' => $moduleID]);
+
+        $rowsAffected = $this->ds->insert(
             'module_description',
             array(
                 'content' => $desc,
+                'module_id' => $moduleID
 //                'last_updated' => date('Y-m-d h:i:s')
             ),
             array('id' => $moduleID)

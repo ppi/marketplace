@@ -15,7 +15,6 @@ class Module extends SharedController
 
     public function createAction()
     {
-//        var_dump($this->session()); exit;
         $sessionModule = $this->session('wizardModule');
         $hasWizardModule = $sessionModule !== null;
 
@@ -82,7 +81,7 @@ class Module extends SharedController
         $moduleHelper = $this->getService('module.helper');
         $moduleHelper->setCompleted($wizardModule->getID(), true);
         $this->getSession()->remove('wizardModule');
-        return $this->redirectToRoute('Module_View', array('moduleID' => $wizardModule->getID()));
+        return $this->redirectToRoute('Module_View', array('moduleId' => $wizardModule->getID()));
     }
 
     public function lookupPackagistAction()
