@@ -1,4 +1,4 @@
-<?php $view->extend('::base.html.php');?>
+<?php $view->extend('::base.html.php'); ?>
 
 <div class="page-header">
     <h1>PPI Marketplace</h1>
@@ -8,14 +8,19 @@
 <div class="col-sm-6">
     <h2><i class="icon-star" style="color:green;"></i> Popular Modules</h2>
 
-    <?php foreach($popularModulesList as $pml): ?>
+    <?php foreach ($popularModulesList as $pml) : ?>
        <div class="module-entry">
             <div>
-                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleId'=>$pml->getID())); ?>"><?php echo $pml->getTitle(); ?></a></h4>
+                <h4>
+                    <a href="<?= $view['router']->generate('Module_View', array('moduleId'=>$pml->getID())); ?>"><?= $pml->getTitle(); ?></a>
+                </h4>
             </div>
-            <div>Created by <?php echo $pml->getAuthorName(); ?> on <?php echo $pml->getCreated()->format('d/m/Y'); ?></div>
+            <div>
+                Created by <?= $view->escape($pml->getAuthorName()); ?> on
+                <?= $pml->getCreated()->format('d/m/Y'); ?>
+            </div>
             <div class="description">
-                <?php echo $pml->getShortDescription(); ?>
+                <?= $view->escape($pml->getShortDescription()); ?>
             </div>
        </div>
     <?php endforeach; ?>
@@ -24,16 +29,17 @@
 <div class="col-sm-6">
     <h2><i class="icon-refresh" style="color:green;"></i> Recently Updated Modules</h2>
 
-    <?php foreach($updatedModulesList as $uml): ?>
+    <?php foreach ($updatedModulesList as $uml) : ?>
         <div class="module-entry">
             <div>
-                <h4><a href="<?php echo $view['router']->generate('Module_View', array('moduleId'=>$uml->getID())); ?>"><?php echo $uml->getTitle(); ?></a></h4>
+                <h4><a href="<?= $view['router']->generate('Module_View', array('moduleId'=>$uml->getID())); ?>"><?= $uml->getTitle(); ?></a></h4>
             </div>
             <div>
-                Created by <?php echo $uml->getAuthorName(); ?> on <?php echo $uml->getLastUpdated()->format('d/m/Y'); ?>
+                Created by <?= $view->escape($uml->getAuthorName()); ?> Updated on
+                <?= $uml->getLastUpdated()->format('d/m/Y'); ?>
             </div>
             <div class="description">
-                <?php echo $uml->getShortDescription(); ?>
+                <?= $view->escape($uml->getShortDescription()); ?>
             </div>
         </div>
     <?php endforeach; ?>

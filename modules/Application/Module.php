@@ -45,25 +45,19 @@ class Module extends AbstractModule
 
     public function getServiceConfig()
     {
-
         return array('factories' => array(
-
-            'module.helper' => function($sm) {
+            'module.helper' => function ($sm) {
                 $helper = new \Application\Classes\ModuleHelper();
                 $helper->setModuleStorage($sm->get('module.storage'));
                 return $helper;
             },
-            
-            'imageresize.helper' => function() {
-            	$helper = new \Application\Classes\ImageResizeHelper();
-            	return $helper;
+            'imageresize.helper' => function () {
+                $helper = new \Application\Classes\ImageResizeHelper();
+                return $helper;
             },
-            'module.storage' => function($sm) {
+            'module.storage' => function ($sm) {
                 return new \Application\Storage\Module($sm->get('datasource')->getConnection('main'));
             },
-
         ));
-
     }
-
 }

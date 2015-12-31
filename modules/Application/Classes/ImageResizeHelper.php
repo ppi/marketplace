@@ -6,9 +6,10 @@ use Intervention\Image\Image as InterventionImage;
 
 class ImageResizeHelper
 {
+    
     public function makeThumb($src, $dest, $desired_width)
     {
         $newImage = InterventionImage::make($src)->resize($desired_width, null, true);
-        $newImage->save($dest);
+        return $newImage->save($dest);
     }
 }

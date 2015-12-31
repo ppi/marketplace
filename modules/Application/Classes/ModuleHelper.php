@@ -79,6 +79,16 @@ class ModuleHelper
         return $this->moduleStorage->createScreenshot($entity);
     }
 
+    /**
+     * @param integer $id
+     *
+     * @return ModuleScreenshotEntity OR integer
+     */
+    public function deleteScreenshotByID($id)
+    {
+        return $this->moduleStorage->deleteScreenshotByID($id);
+    }
+
     public function getDescByModuleId($id)
     {
         return $this->moduleStorage->getDescByModuleId($id);
@@ -104,6 +114,11 @@ class ModuleHelper
     public function create(ModuleEntity $module)
     {
         return $this->moduleStorage->create($module);
+    }
+
+    public function update(ModuleEntity $module)
+    {
+        return $this->moduleStorage->update($module);
     }
 
     public function getPopularModules()

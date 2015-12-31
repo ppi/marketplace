@@ -2,12 +2,18 @@
 
     <div class="page-header">
         <div class="left">
-            <h1><?=$view->escape($selectedModule->getTitle());?></h1>
+            <h1><?= $view->escape($selectedModule->getTitle()); ?></h1>
         </div>
         <div class="right">
             <i class="icon-star-o"></i>
         </div>
     </div>
+
+    <?php if ($moduleOwner) : ?>
+        <div class="col-sm-12 margin-bottom-10">
+            <a class="btn btn-success" href="<?= $view['router']->generate('Module_Edit', array('moduleId'=>$selectedModule->getID())); ?>">Edit Module</a>
+        </div>
+    <?php endif; ?>
 
     <div class="col-sm-8">
         <div class="tabbable">
@@ -57,31 +63,29 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane in active" id="moduleDescription"><?= $selectedModule->getDescription(); ?></div>
+                <div class="tab-pane in active" id="moduleDescription"><?= $view->escape($selectedModule->getDescription()); ?></div>
 
                 <div class="tab-pane" id="screenshot">
                     <div class="row">
                         <ul class="ace-thumbnails">
-                            <?php foreach($selectedModule->getScreenshots() as $screenshot): ?>
-                            <li>
-                                <a class="cboxElement" href="<?=$view->escape($screenshot->getPath());?>" data-rel="colorbox">
-                                    <img alt="150x150" src="<?=$view['assets']->getUrl($view->escape($screenshot->getThumbPath()));?>"/>
-                                </a>
-
-                                <div class="tools tools-top">
-                                    <a href="#"><i class="icon-link"></i></a>
-
-                                    <a href="#">
-                                        <i class="icon-remove red"></i>
+                            <?php foreach ($selectedModule->getScreenshots() as $screenshot) : ?>
+                                <li>
+                                    <a class="cboxElement" href="<?= $view['assets']->getUrl('screenshots/' . $view->escape($screenshot->getPath())); ?>" data-rel="colorbox">
+                                        <img alt="150x150" src="<?= $view['assets']->getUrl('thumbs/' . $view->escape($screenshot->getThumbPath())); ?>"/>
                                     </a>
-                                </div>
-                            </li>
+
+                                    <!--
+                                    <div class="tools tools-top">
+                                        <a href="#"><i class="icon-link"></i></a>
+                                    </div>
+                                    -->
+                                </li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
 
-                <div class="tab-pane" id="moduleInstallation"><?= $selectedModule->getInstallationDetails(); ?></div>
+                <div class="tab-pane" id="moduleInstallation"><?= $view->escape($selectedModule->getInstallationDetails()); ?></div>
 
                 <div class="tab-pane" id="support">
                     <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
@@ -89,7 +93,7 @@
 
                 <div class="tab-pane" id="comments">
                     <div class="dialogs">
-                        <?php foreach ($selectedModule->getComments() as $comment): ?>
+                        <?php foreach ($selectedModule->getComments() as $comment) : ?>
                             <div class="itemdiv dialogdiv">
                                 <div class="user">
                                     <img alt="Alexa's Avatar" src="/assets/avatars/avatar1.png">
@@ -122,8 +126,8 @@
                             <div class="profile-info-name"> Github Url </div>
 
                             <div class="profile-info-value">
-                                <a href="<?=$selectedModule->getGithubUrl();?>" title="Github Url" target="_blank">
-                                    <span class="editable editable-click" id="username"><?=$selectedModule->getGithubUrl();?></span>
+                                <a href="<?= $selectedModule->getGithubUrl(); ?>" title="Github Url" target="_blank">
+                                    <span class="editable editable-click" id="username"><?= $selectedModule->getGithubUrl(); ?></span>
                                 </a>
                             </div>
                         </div>
@@ -141,56 +145,57 @@
 				Authors
 			</h4>
 		</div>
-		
+
 		<div class="widget-body">
 			<div class="widget-main">
-				
-				<?php foreach($selectedModule->getAuthors() as $author):?>
+
+				<?php foreach ($selectedModule->getAuthors() as $author) : ?>
 				<div class="author">
-					<img src="<?=$view['assets']->getUrl($author->getImagePath());?>" class="users" /> <span><?=$view->escape($author->getFirstname()) . ' ' . $view->escape($author->getLastname());?></span>
+					<img src="<?= $view['assets']->getUrl($author->getImagePath()); ?>" class="users" />
+                    <span><?= $view->escape($author->getFirstname()) . ' ' . $view->escape($author->getLastname()); ?></span>
 				</div>
 				<?php endforeach;?>
-				<hr>				
-				
+				<hr>
+
 				<div class="profile-user-info profile-user-info-striped">
 					<div class="profile-info-row">
 						<div class="profile-info-name"> Rating </div>
-				
+
 						<div class="profile-info-value">
-							<span><?=$selectedModule->getNumStars();?></span>
+							<span><?= $selectedModule->getNumStars(); ?></span>
 						</div>
 					</div>
-				
+
 					<div class="profile-info-row">
 						<div class="profile-info-name"> Requirements </div>
 						<div class="profile-info-value">2.1</div>
 					</div>
-				
+
 					<div class="profile-info-row">
 						<div class="profile-info-name"> Last Updated </div>
-				
+
 						<div class="profile-info-value">
-							<span><?=$selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA')?></span>
+							<span><?= $selectedModule->getLastUpdated()->format('jS F Y \a\t h:i:sA'); ?></span>
 						</div>
 					</div>
-				
+
 					<div class="profile-info-row">
 						<div class="profile-info-name"> Downloaded </div>
-				
+
 						<div class="profile-info-value">
-							<span><?=$view->escape($selectedModule->getNumDownloads());?></span>
+							<span><?= $view->escape($selectedModule->getNumDownloads()); ?></span>
 						</div>
 					</div>
-				
+
 					<div class="profile-info-row">
 						<div class="profile-info-name"> License: </div>
-				
+
 						<div class="profile-info-value">
 							<span>GPL</span>
 						</div>
 					</div>
-				
-				</div>				
+
+				</div>
 			</div>
 		</div>
 	</div>
@@ -210,11 +215,15 @@
 <?php $view['slots']->start('include_css'); ?>
 	<style>
 		.author {
-			margin-bottom:10px;
+			margin-bottom: 10px;
 		}
-		
+
 		.bold {
 			font-weight: bold;
 		}
+
+        .margin-bottom-10 {
+            margin-bottom: 10px;
+        }
 	</style>
 <?php $view['slots']->stop();?>

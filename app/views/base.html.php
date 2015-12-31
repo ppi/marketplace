@@ -76,7 +76,7 @@
         <div class="navbar-container" id="navbar-container">
 
             <div class="navbar-header pull-left">
-                <a href="#" class="navbar-brand">
+                <a href="<?= $view['router']->generate('Homepage'); ?>" class="navbar-brand">
                     <small>
                         <i class="icon-bar-chart"></i>
                         PPI Marketplace
@@ -131,7 +131,7 @@
             </a>
 
             <div class="sidebar" id="sidebar">
-
+                <!--
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success">
@@ -168,6 +168,13 @@
                         </a>
                     </li>
 
+                    <li id="create">
+                        <a href="<?php echo $view['router']->generate('Module_Create'); ?>">
+                            <i class="icon-plus"></i>
+                            <span class="menu-text"> Create Module </span>
+                        </a>
+                    </li>
+
                     <li id="search">
                         <a href="<?php echo $view['router']->generate('Module_Search'); ?>">
                             <i class="icon-search"></i>
@@ -175,8 +182,8 @@
                         </a>
                     </li>
 
-                    <?php if(isset($view['navigation'])): ?>
-                        <?php foreach($view['navigation']->getItems() as $navItem): ?>
+                    <?php if (isset($view['navigation'])) : ?>
+                        <?php foreach ($view['navigation']->getItems() as $navItem) : ?>
                             <li>
                                 <a href="<?=$navItem->getHref();?>">
                                     <i class="icon-<?=$navItem->getIconSuffix();?>"></i>
@@ -185,7 +192,6 @@
                             </li>
                         <?php endforeach; ?>
                     <?php endif; ?>
-
                 </ul>
                 <!-- /.nav-list -->
 
@@ -218,17 +224,6 @@
 
                     </ul>
                     <!-- .breadcrumb -->
-
-                    <div class="nav-search" id="nav-search">
-                        <form class="form-search">
-                            <span class="input-icon">
-                                <input type="text" placeholder="Search ..." class="nav-search-input"
-                                       id="nav-search-input" autocomplete="off"/>
-                                <i class="icon-search nav-search-icon"></i>
-                            </span>
-                        </form>
-                    </div>
-                    <!-- #nav-search -->
                 </div>
 
                 <div class="page-content">

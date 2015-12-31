@@ -60,8 +60,8 @@ class ModuleEntity
     {
         return $this->installation_details;
     }
-    
-    
+
+
 
     /**
      * @param integer $num_stars
@@ -118,10 +118,10 @@ class ModuleEntity
     {
         $this->comments = $comments;
     }
-    
+
     /**
      * @param array $authors
-     */    
+     */
     public function setAuthors(array $authors)
     {
     	$this->authors = $authors;
@@ -311,7 +311,7 @@ class ModuleEntity
     {
         return $this->screenshots;
     }
-    
+
     /**
      * @return array
      */
@@ -319,7 +319,7 @@ class ModuleEntity
     {
     	return $this->authors;
     }
-    
+
     /**
      * @param string $title
      */
@@ -362,11 +362,34 @@ class ModuleEntity
         $this->setNumDownloads(0);
         $vars = $this->toArray();
         unset(
-            $vars['id'], $vars['comments'], $vars['authors'],
-            $vars['screenshots'], $vars['author_firstname'], $vars['author_lastname'], $vars['author_avatar'],
-            $vars['description'], $vars['installation_details']
+            $vars['id'],
+            $vars['comments'],
+            $vars['authors'],
+            $vars['screenshots'],
+            $vars['author_firstname'],
+            $vars['author_lastname'],
+            $vars['author_avatar'],
+            $vars['description'],
+            $vars['installation_details']
         );
         return $vars;
     }
 
+    public function toUpdateArray()
+    {
+        $vars = $this->toArray();
+        unset(
+            $vars['id'],
+            $vars['comments'],
+            $vars['authors'],
+            $vars['screenshots'],
+            $vars['author_firstname'],
+            $vars['author_lastname'],
+            $vars['author_avatar'],
+            $vars['description'],
+            $vars['installation_details'],
+            $vars['created']
+        );
+        return $vars;
+    }
 }

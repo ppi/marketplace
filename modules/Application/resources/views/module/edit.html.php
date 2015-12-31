@@ -25,9 +25,7 @@
 </div>
 
 <div id="step-container" class="step-content row-fluid position-relative">
-
     <div id="step1" class="step-pane active">
-
         <div class="widget-box">
             <div class="widget-header widget-header-blue widget-header-flat">
                 <h4 class="lighter">Module Wizard</h4>
@@ -36,17 +34,17 @@
             <div class="widget-body">
                 <div class="widget-main">
                     <form action="<?php echo $view['router']->generate('Module_Save_Information'); ?>" method="post"
-                          id="module-create-form" data-existing="<?= $hasWizardModule ? 'true' : 'false'; ?>">
+                          id="module-create-form">
                         <div class="form-group">
                             <label for="module-title"
                                    class="col-xs-12 col-sm-3 control-label no-padding-right">Name</label>
 
                             <div class="col-xs-12 col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="text" id="module-title" name="moduleName" class="width-100"
-                                                       value="<?= $hasWizardModule ? $wizardModule->getTitle() : ''; ?>">
-                                                <i class="icon-info-sign"></i>
-                                            </span>
+                                <span class="block input-icon input-icon-right">
+                                    <input type="text" id="module-title" name="moduleName" class="width-100"
+                                           value="<?= $wizardModule->getTitle(); ?>">
+                                    <i class="icon-info-sign"></i>
+                                </span>
                             </div>
                             <div class="help-block col-xs-12 col-sm-reset inline"> Enter the module title!</div>
                         </div>
@@ -56,14 +54,15 @@
                                 URL</label>
 
                             <div class="col-xs-12 col-sm-5">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="text" id="github-url" name="githubUrl" class="width-100"
-                                                       value="<?= $hasWizardModule ? $wizardModule->getGithubUrl() : ''; ?>">
-                                                <i class="icon-info-sign"></i>
-                                            </span>
+                                <span class="block input-icon input-icon-right">
+                                    <input type="text" id="github-url" name="githubUrl" class="width-100"
+                                           value="<?= $wizardModule->getGithubUrl(); ?>">
+                                    <i class="icon-info-sign"></i>
+                                </span>
                             </div>
                             <div class="help-block col-xs-12 col-sm-reset inline"> Enter Github URL!</div>
                         </div>
+                        <input type="hidden" name="moduleId" value="<?= $wizardModule->getID(); ?>" />
                     </form>
                 </div>
             </div>
@@ -77,10 +76,13 @@
 
             <div class="widget-body">
                 <div class="widget-main no-padding">
-                    <form action="<?php echo $view['router']->generate('Module_Save_Description'); ?>" method="post"
+                    <form action="<?= $view['router']->generate('Module_Save_Description'); ?>" method="post"
                           id="module-desc-form">
 
-                        <textarea name="moduleDescription" data-provide="markdown" rows="10" id="description"><?= $hasWizardModule ? $wizardModule->getDescription() : ''; ?></textarea>
+                        <textarea name="moduleDescription"
+                            data-provide="markdown"
+                            rows="10"
+                            id="description"><?= $wizardModule->getDescription(); ?></textarea>
                     </form>
                 </div>
             </div>
@@ -88,7 +90,6 @@
     </div>
 
     <div id="step3" class="step-pane">
-
         <div class="widget-box">
             <div class="widget-header widget-header-blue widget-header-flat">
                 <h4 class="lighter">Module Wizard</h4>
@@ -96,7 +97,6 @@
 
             <div class="widget-body">
                 <div class="widget-main">
-
                     <form action="<?php echo $view['router']->generate('Module_Save_Screenshots'); ?>"
                           class="dropzone">
                         <div id="screenshot-dropzone" class="row">
@@ -106,6 +106,30 @@
                         </div>
                     </form>
 
+                    <div id="current-screenshots" class="col-sm-12 well">
+                        <h2>Uploaded Screenshots</h2>
+                        <?php if (count($wizardModule->getScreenshots()) > 0) : ?>
+                            <ul class="ace-thumbnails">
+                                <?php foreach ($wizardModule->getScreenshots() as $screenshot) : ?>
+                                    <li>
+                                        <a class="cboxElement" href="<?= $view['assets']->getUrl('screenshots/' . $view->escape($screenshot->getPath())); ?>" data-rel="colorbox">
+                                            <img alt="150x150" src="<?= $view['assets']->getUrl('thumbs/' . $view->escape($screenshot->getThumbPath())); ?>"/>
+                                        </a>
+
+                                        <div class="tools tools-top">
+                                            <a class="delete-screenshot" rel="<?= $screenshot->getId(); ?>">
+                                                <i class="icon-remove red"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <input type="hidden" id="moduleId" value="<?= $moduleId ?>" />
+                        <?php else : ?>
+                            <p>No Screenshots have been uploaded</p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -129,7 +153,6 @@
         Next<i class="icon-arrow-right icon-on-right"></i>
     </button>
 </div>
-
 </div>
 
 <?php $view['slots']->start('include_js_body'); ?>
@@ -138,11 +161,9 @@
 <script type="text/javascript" src="<?= $view['assets']->getUrl('assets/js/markdown/bootstrap-markdown.min.js'); ?>"></script>
 
 <script type="text/javascript">
-
     var createdModule = false;
 
     $(document).ready(function () {
-
         // @todo - if loading existing module, disable the step1 fields
         var createForm = $('#module-create-form');
         if (createForm.data('existing') == true) {
@@ -216,7 +237,6 @@
                     }); // End of $.ajax()
 
                     return changeStep;
-
                 }
 
                 // Lets always presume we're going to continue to next step
@@ -255,7 +275,37 @@
                 return;
             });
 
+        $('.delete-screenshot').on('click', function(event) {
+            bootbox.confirm("Are you sure you want to delete this Screenshot?", function(result) {
+                if (result) {
+                    $.ajax({
+                        dataType: 'json',
+                        method: 'post',
+                        url: '<?= $view['router']->generate('Module_Delete_Screenshot'); ?>',
+                        data: {
+                            'moduleId': $('#moduleId').val(),
+                            'screenshotId': $(event.target).parent().prop('rel')
+                        },
+                        success: function (response) {
+                            if (response.status != 'success') {
+                                bootbox.dialog({
+                                    closeButton: false,
+                                    message: "Unable to delete screenshot",
+                                    buttons: {
+                                        "success": {
+                                            label: "Try again!",
+                                            className: "btn-sm btn-primary"
+                                        }
+                                    }
+                                });
+                            }
 
+                            $('#current-screenshots').html(response.html);
+                        }
+                    });
+                }
+            });
+        });
     });
 
 </script>
@@ -268,12 +318,20 @@
         padding: 0; /* To make steps all the same height */
     }
 
+    .icon-remove {
+        cursor: pointer;
+    }
+
     #description {
         width: 100%;
     }
 
     .dropzone {
         border: 1px dashed #5293C4;
+    }
+
+    #current-screenshots {
+        margin-top: 10px;
     }
 </style>
 <?php $view['slots']->stop(); ?>

@@ -10,9 +10,8 @@ use Application\Entity\SourceEntity;
 
 class Module extends BaseStorage
 {
-
-    const fetchMode = \PDO::FETCH_ASSOC;
-    const tableName = 'module';
+    const FETCH_MODE = \PDO::FETCH_ASSOC;
+    const TABLE_NAME = 'module';
 
     /**
      * Find a user record by its ID
@@ -41,12 +40,12 @@ class Module extends BaseStorage
                  IFNULL(m.num_stars, 0) as num_stars, IFNULL(m.num_downloads, 0) as num_downloads,
                  m.short_description, mi.content as installation_details, md.content as description'
             )
-            ->from(self::tableName, 'm')
+            ->from(self::TABLE_NAME, 'm')
             ->leftJoin('m', 'module_installation', 'mi', 'm.id = mi.module_id')
-            ->leftJoin('m', 'module_description' ,'md', 'm.id = md.module_id')
+            ->leftJoin('m', 'module_description', 'md', 'm.id = md.module_id')
             ->andWhere('m.id = :moduleID')->setParameter(':moduleID', $moduleID)
             ->execute()
-            ->fetch(self::fetchMode);
+            ->fetch(self::FETCH_MODE);
 
         if ($row === false) {
             throw new \Exception('Unable to obtain module row for id: ' . $moduleID);
@@ -63,7 +62,7 @@ class Module extends BaseStorage
             ->from('module_comment', 'mc')
             ->andWhere('mc.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
             ->execute()
-            ->fetchAll(self::fetchMode);
+            ->fetchAll(self::FETCH_MODE);
 
         if ($rows === false) {
             throw new \Exception('Unable to obtain comments for module id: ' . $moduleID);
@@ -91,7 +90,7 @@ class Module extends BaseStorage
             ->from('module_screenshot', 'ms')
             ->andWhere('ms.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
             ->execute()
-            ->fetchAll(self::fetchMode);
+            ->fetchAll(self::FETCH_MODE);
 
         if ($rows === false) {
             throw new \Exception('Unable to obtain screenshots for module id: ' . $moduleID);
@@ -104,6 +103,42 @@ class Module extends BaseStorage
         return $ent;
     }
 
+    /**
+     * Gets a single screenshot entity by id
+     *
+     * @param integer $screenshotID
+     * @return ModuleScreenshotEntity
+     * @throws \Exception
+     */
+    public function getScreenshotByID($screenshotID)
+    {
+        $row = $this->ds->createQueryBuilder()
+            ->select('ms.*')
+            ->from('module_screenshot', 'ms')
+            ->andWhere('ms.id = :screenshotID')->setParameter(':screenshotID', $screenshotID)
+            ->execute()
+            ->fetch(self::FETCH_MODE);
+
+        if ($row === false) {
+            throw new \Exception('Unable to obtain screenshot for screenshot id: ' . $screenshotID);
+        }
+
+        return new ModuleScreenshotEntity($row);
+    }
+
+    /**
+     * Deletes a Screenshot by id
+     *
+     * @param integer $screenshotID
+     * @return ModuleScreenshotEntity OR false
+     */
+
+    public function deleteScreenshotByID($screenshotID)
+    {
+        $tempScreenshot = $this->getScreenshotByID($screenshotID);
+        return ($this->ds->delete('module_screenshot', array('id'=>$screenshotID)) > 0) ? $tempScreenshot : false;
+    }
+
 //    public function getSourceInfoByModuleID($moduleID)
 //    {
 //        $row = $this->ds->createQueryBuilder()
@@ -111,7 +146,7 @@ class Module extends BaseStorage
 //            ->from('module_source_info', 'si')
 //            ->andWhere('si.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
 //            ->execute()
-//            ->fetch(self::fetchMode);
+//            ->fetch(self::FETCH_MODE);
 //
 //        if ($row === false) {
 //            throw new \Exception('Unable to obtain source info for module id: ' . $moduleID);
@@ -127,7 +162,7 @@ class Module extends BaseStorage
             ->from('module_author', 'a')
             ->andWhere('a.module_id = :moduleID')->setParameter(':moduleID', $moduleID)
             ->execute()
-            ->fetchAll(self::fetchMode);
+            ->fetchAll(self::FETCH_MODE);
 
         if ($rows === false) {
             throw new \Exception('Unable to obtain screenshots for module id: ' . $moduleID);
@@ -155,8 +190,15 @@ class Module extends BaseStorage
         $data['last_updated'] = date('Y-m-d h:i:s');
         $data['created'] = date('Y-m-d h:i:s');
 
-        $rowsAffected = $this->ds->insert(self::tableName, $data);
+        $rowsAffected = $this->ds->insert(self::TABLE_NAME, $data);
         return $this->ds->lastInsertId();
+    }
+
+    public function update(ModuleEntity $entity)
+    {
+        $data = $entity->toUpdateArray();
+        $data['last_updated'] = date('Y-m-d h:i:s');
+        return $this->ds->update(self::TABLE_NAME, $data, array('id'=>$entity->getID()));
     }
 
     public function createScreenshot(ModuleScreenshotEntity $entity)
@@ -173,7 +215,7 @@ class Module extends BaseStorage
             ->from('module_description', 'md')
             ->andWhere('md.module_id = :id')->setParameter(':id', $id)
             ->execute()
-            ->fetch(self::fetchMode);
+            ->fetch(self::FETCH_MODE);
 
         return isset($row['content']) ? $row['content'] : '';
 
@@ -182,7 +224,7 @@ class Module extends BaseStorage
     public function setCompleted($moduleID, $flag)
     {
         $rowsAffected = $this->ds->update(
-            self::tableName,
+            self::TABLE_NAME,
             array('is_completed' => (int) $flag, 'last_updated' => date('Y-m-d h:i:s')),
             array('id' => $moduleID)
         );
@@ -205,7 +247,6 @@ class Module extends BaseStorage
             array(
                 'content' => $desc,
                 'module_id' => $moduleID
-//                'last_updated' => date('Y-m-d h:i:s')
             ),
             array('id' => $moduleID)
         );
@@ -226,31 +267,37 @@ class Module extends BaseStorage
 
         $row = $this->ds->createQueryBuilder()
             ->select('count(id) as count')
-            ->from(self::tableName, 'm')
+            ->from(self::TABLE_NAME, 'm')
             ->andWhere('m.title = :moduleID')->setParameter(':moduleID', $title)
             ->execute()
-            ->fetch(self::fetchMode);
+            ->fetch(self::FETCH_MODE);
 
         if ($row === false) {
             throw new \Exception('Unable to obtain module by title');
         }
 
-        if(isset($row['count']) && intval($row['count']) > 0) {
+        if (isset($row['count']) && intval($row['count']) > 0) {
             return true;
         }
 
         return false;
     }
 
-    public function getPopularModules() {
+    public function getPopularModules()
+    {
         $rows = $this->ds->createQueryBuilder()
-            ->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar')
-            ->from(self::tableName, 't')
+            ->select('
+                      t.*,
+                      a.firstname as author_firstname,
+                      a.lastname as author_lastname,
+                      a.image_path as author_avatar
+                     ')
+            ->from(self::TABLE_NAME, 't')
             ->leftJoin('t', 'module_author', 'a', 't.author_id = a.id')
             ->orderBy('t.num_stars', 'ASC')
             ->setMaxResults(10)
             ->execute()
-            ->fetchAll(self::fetchMode);
+            ->fetchAll(self::FETCH_MODE);
 
         $ent = array();
         foreach ($rows as $r) {
@@ -259,15 +306,21 @@ class Module extends BaseStorage
         return $ent;
     }
 
-    public function getUpdatedModules() {
+    public function getUpdatedModules()
+    {
         $rows = $this->ds->createQueryBuilder()
-            ->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar')
-            ->from(self::tableName, 't')
+            ->select('
+                      t.*,
+                      a.firstname as author_firstname,
+                      a.lastname as author_lastname,
+                      a.image_path as author_avatar
+                    ')
+            ->from(self::TABLE_NAME, 't')
             ->leftJoin('t', 'module_author', 'a', 't.author_id = a.id')
-            ->orderBy('t.last_updated', 'ASC')
+            ->orderBy('t.last_updated', 'DESC')
             ->setMaxResults(10)
             ->execute()
-            ->fetchAll(self::fetchMode);
+            ->fetchAll(self::FETCH_MODE);
 
         $ent = array();
         foreach ($rows as $r) {
@@ -275,32 +328,36 @@ class Module extends BaseStorage
         }
         return $ent;
     }
-    
-    public function searchModules($query) {
+
+    public function searchModules($query)
+    {
         $qb = $this->ds->createQueryBuilder();
-        $qb->select('t.*, a.firstname as author_firstname, a.lastname as author_lastname, a.image_path as author_avatar');
-        $qb->from(self::tableName, 't');
-        $qb->leftJoin('t', 'module_author', 'a', 't.author_id = a.id');        
-       
-        if($query != '' && $query !== '%') {
+        $qb->select('
+                     t.*,
+                     a.firstname as author_firstname,
+                     a.lastname as author_lastname,
+                     a.image_path as author_avatar
+                   ');
+        $qb->from(self::TABLE_NAME, 't');
+        $qb->leftJoin('t', 'module_author', 'a', 't.author_id = a.id');
+
+        if ($query != '' && $query !== '%') {
             $qb->andWhere($qb->expr()->orX(
-                    $qb->expr()->like('t.title', ':title'),
-                    $qb->expr()->like('t.short_description', ':description')
+                $qb->expr()->like('t.title', ':title'),
+                $qb->expr()->like('t.short_description', ':description')
             ))
             ->setParameter(':title', '%' . $query . '%')
-            ->setParameter(':description',  '%' . $query . '%');
-        }                
-                
-                
-        $qb->orderBy('t.last_updated', 'ASC');
-        $rows = $qb->execute()->fetchAll(self::fetchMode);
-        
+            ->setParameter(':description', '%' . $query . '%');
+        }
+
+
+        $qb->orderBy('t.last_updated', 'DESC');
+        $rows = $qb->execute()->fetchAll(self::FETCH_MODE);
+
         $ent = array();
         foreach ($rows as $r) {
             $ent[] = new ModuleEntity($r);
         }
         return $ent;
     }
-
-
 }

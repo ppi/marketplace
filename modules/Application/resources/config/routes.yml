@@ -2,34 +2,42 @@ Homepage:
     pattern:  /
     defaults: { _controller: "Application:Index:index"}
 
-Create_Module:
+Module_Create:
     pattern:  /module/create
     defaults: { _controller: "Application:Module:create"}
 
-Lookup_Packagist:
-    pattern:  /module/packagist/lookup
-    defaults: { _controller: "Application:Module:lookupPackagist"}
+Module_Edit:
+    pattern:  /module/edit/{moduleId}
+    defaults: { _controller: "Application:Module:edit"}
 
-Module_Screenshot_Upload:
-    pattern:  /module/screenshot/upload
-    defaults: { _controller: "Application:Module:uploadScreenshot"}
+Module_Save_Information:
+    pattern:  /module/save/information
+    defaults: { _controller: "Application:Module:saveInformation"}
 
-Module_Save:
-    pattern:  /module/save
-    defaults: { _controller: "Application:Module:save"}
+Module_Save_Description:
+    pattern:  /module/save/description
+    defaults: { _controller: "Application:Module:saveDescription"}
 
-Module_Set_Description:
-    pattern:  /module/description/set
-    defaults: { _controller: "Application:Module:setDesc"}
+Module_Save_Screenshots:
+    pattern:  /module/save/screenshots
+    defaults: { _controller: "Application:Module:saveScreenshots"}
 
-Module_Finish:
-    pattern:  /module/finish
-    defaults: { _controller: "Application:Module:finish"}
+Module_Save_Finish:
+    pattern:  /module/save/finish
+    defaults: { _controller: "Application:Module:saveFinish"}
+
+Module_Delete_Screenshot:
+    pattern:  /module/delete/screenshot
+    defaults: { _controller: "Application:Module:deleteScreenshot"}
 
 Module_View:
     pattern:  /module/view/{moduleId}
     defaults: { _controller: "Application:Module:view"}
- 
+
 Module_Search:
     pattern:  /module/search
-    defaults: { _controller: "Application:Module:search"}    
+    defaults: { _controller: "Application:Module:search"}
+
+Lookup_Packagist:
+    pattern:  /module/packagist/lookup
+    defaults: { _controller: "Application:Module:lookupPackagist"}

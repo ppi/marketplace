@@ -3,6 +3,8 @@ app/cache/*
 app/logs/*
 app/config/base/datasource.php
 public/modules/*
+public/screenshots/*
+public/thumbs/*
 module/UserModule/resources/config/config.yml
 
 .DS_Store

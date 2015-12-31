@@ -13,7 +13,4 @@ class Index extends SharedController
         $updatedModulesList = $moduleHelper->getUpdatedModules();
         return $this->render('Application:index:index.html.php', compact('popularModulesList', 'updatedModulesList'));
     }
-
-
-
 }
