@@ -1,6 +1,8 @@
 README
 ======
 
+[![Join the chat at https://gitter.im/ppi/marketplace](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ppi/marketplace?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 What is PPI ?
 --------------
 The PPI Framework is a micro to light full-stack web framework. It focuses on having a light footprint, convenient and minimalistic. It allows developers to rapidly develop web applications and utilize features from 3rd party libraries without the tedious integration of them into your project. It also allows developers to build better and easy to maintain websites/web applications.
